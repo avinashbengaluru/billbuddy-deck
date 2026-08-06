@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why BillBuddy — Before & After</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --glow: #5eead4;
+      --before: #fb923c;
+      --after: #2dd4bf;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%; overflow: hidden;
+      font-family: "Instrument Sans", system-ui, sans-serif;
+      color: #e8f2f7; background: #061018;
+    }
+
+    body {
+      background:
+        radial-gradient(900px 520px at 8% -5%, rgba(13, 148, 136, 0.28), transparent 55%),
+        radial-gradient(800px 480px at 92% 8%, rgba(194, 65, 12, 0.18), transparent 50%),
+        linear-gradient(165deg, #07131f 0%, #0b1c2a 45%, #102433 100%);
+    }
+
+    .slide {
+      height: 100dvh; max-height: 100vh; max-width: 1280px;
+      margin: 0 auto; padding: 0.55rem 1rem 0.55rem;
+      display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto;
+      gap: 0.4rem; overflow: hidden;
+    }
+
+    .brand-bar {
+      display: flex; align-items: center; justify-content: center; gap: 0.65rem;
+      padding: 0.3rem 0.7rem; border-radius: 999px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px); width: fit-content; margin: 0 auto;
+    }
+    .brand-bar img { display: block; object-fit: contain; }
+    .billbuddy-logo { height: 30px; width: auto; }
+    .tally-logo { height: 24px; width: auto; background: #fff; padding: 0.18rem 0.38rem; border-radius: 6px; }
+    .vs-chip {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      color: rgba(255,255,255,0.7); font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .vs-chip span {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--glow); box-shadow: 0 0 10px var(--glow);
+    }
+
+    .title-bubble {
+      justify-self: center; text-align: center; max-width: min(820px, 94%);
+      padding: 0.55rem 1.15rem 0.6rem; border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.2);
+      backdrop-filter: blur(14px);
+    }
+    .title-bubble h1 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(1.1rem, 2.3vw, 1.65rem); font-weight: 600;
+      letter-spacing: -0.03em; line-height: 1.15; color: #f4fafc;
+    }
+    .title-bubble .sub {
+      margin-top: 0.28rem; color: rgba(226,236,244,0.72);
+      font-size: clamp(0.72rem, 1.05vw, 0.9rem); line-height: 1.35;
+    }
+
+    .compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem;
+      min-height: 0; height: 100%;
+    }
+
+    .flow-panel {
+      position: relative; min-height: 0; border-radius: 18px; overflow: hidden;
+      display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+      background: rgba(8, 18, 28, 0.88);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 14px 36px rgba(0,0,0,0.3);
+    }
+
+    .flow-panel::before {
+      content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; z-index: 2;
+    }
+    .flow-panel.before::before { background: linear-gradient(90deg, #ea580c, #fb923c); }
+    .flow-panel.after::before { background: linear-gradient(90deg, #0d9488, #2dd4bf); }
+
+    .flow-head { padding: 0.55rem 0.75rem 0.35rem; }
+    .flow-head .tag {
+      display: inline-block; font-size: 0.56rem; font-weight: 700;
+      letter-spacing: 0.11em; text-transform: uppercase;
+      padding: 0.16rem 0.45rem; border-radius: 999px; margin-bottom: 0.25rem;
+    }
+    .flow-panel.before .tag { color: #fb923c; background: rgba(251,146,60,0.14); }
+    .flow-panel.after .tag { color: #5eead4; background: rgba(45,212,191,0.14); }
+    .flow-head h2 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(0.88rem, 1.25vw, 1.05rem); font-weight: 600;
+      color: #f4fafc; line-height: 1.25;
+    }
+
+    .flow-diagram {
+      position: relative; margin: 0 0.55rem; min-height: 0;
+      border-radius: 14px; overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .flow-diagram svg {
+      position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+    }
+
+    .edge-b { fill: none; stroke: rgba(251,146,60,0.35); stroke-width: 2; stroke-linecap: round; }
+    .edge-b-dash { fill: none; stroke: rgba(251,146,60,0.5); stroke-width: 1.8; stroke-dasharray: 4 8; animation: dash 2s linear infinite; }
+    .edge-a { fill: none; stroke: rgba(45,212,191,0.35); stroke-width: 2; stroke-linecap: round; }
+    .edge-a-dash { fill: none; stroke: rgba(94,234,212,0.45); stroke-width: 1.8; stroke-dasharray: 4 8; animation: dash 2.2s linear infinite; }
+    .edge-loop { fill: none; stroke-width: 2; stroke-dasharray: 5 6; animation: dash 1.4s linear infinite; }
+    .flow-panel.before .edge-loop { stroke: rgba(251,146,60,0.55); }
+    .flow-panel.after .edge-loop { stroke: rgba(94,234,212,0.5); }
+
+    @keyframes dash { to { stroke-dashoffset: -26; } }
+
+    .pkt-b { fill: #fb923c; filter: drop-shadow(0 0 5px rgba(251,146,60,0.9)); }
+    .pkt-a { fill: #5eead4; filter: drop-shadow(0 0 5px rgba(45,212,191,0.9)); }
+
+    .nodes { position: absolute; inset: 0; }
+
+    .fnode {
+      position: absolute; transform: translate(-50%, -50%);
+      width: min(108px, 22vw); padding: 0.45rem 0.5rem;
+      border-radius: 12px; text-align: center;
+      background: rgba(8, 18, 28, 0.96);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 8px 22px rgba(0,0,0,0.3);
+      backdrop-filter: blur(8px);
+    }
+
+    .fnode .icon {
+      height: 26px; margin: 0 auto 0.3rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .fnode .icon img { max-height: 22px; max-width: 80px; object-fit: contain; }
+    .fnode .tally-wrap {
+      background: #fff; border-radius: 6px; padding: 0.15rem 0.35rem; display: inline-flex;
+    }
+    .fnode .tally-wrap img { max-height: 16px; }
+
+    .fnode h3 {
+      font-size: 0.68rem; font-weight: 700; color: #f4fafc; line-height: 1.2;
+    }
+    .fnode p {
+      font-size: 0.55rem; color: rgba(210,224,234,0.58); line-height: 1.25; margin-top: 0.12rem;
+    }
+
+    .fnode.lookup { border-color: rgba(251,146,60,0.45); width: min(96px, 20vw); }
+    .fnode.lookup p { color: rgba(251,191,36,0.75); font-weight: 600; }
+
+    .flow-panel.after .fnode.hub {
+      width: min(118px, 24vw);
+      border-color: rgba(45,212,191,0.45);
+      box-shadow: 0 0 24px rgba(45,212,191,0.12);
+    }
+
+    /* Before positions (viewBox 400x520) */
+    .b-wa { left: 22%; top: 10%; }
+    .b-tally { left: 50%; top: 28%; }
+    .b-stock { left: 18%; top: 48%; }
+    .b-cust { left: 50%; top: 48%; }
+    .b-rate { left: 82%; top: 48%; }
+    .b-pdf { left: 50%; top: 68%; }
+    .b-wa2 { left: 22%; top: 88%; }
+
+    /* After positions */
+    .a-wa { left: 22%; top: 12%; }
+    .a-bb { left: 50%; top: 38%; }
+    .a-quote { left: 78%; top: 58%; }
+    .a-tally { left: 50%; top: 82%; }
+
+    .loop-label {
+      position: absolute; z-index: 10;
+      font-size: 0.56rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; white-space: nowrap;
+      background: rgba(7,19,31,0.95); border-radius: 999px;
+      padding: 0.22rem 0.5rem;
+      writing-mode: horizontal-tb; text-orientation: mixed;
+    }
+    .flow-panel.before .loop-label {
+      left: 4%; bottom: 10%; top: auto;
+      transform: none;
+      color: #fb923c; border: 1px solid rgba(251,146,60,0.45);
+    }
+    .flow-panel.after .loop-label {
+      right: 5%; left: auto; top: 38%;
+      transform: none;
+      color: #5eead4; border: 1px solid rgba(45,212,191,0.45);
+    }
+
+    .steps {
+      list-style: none; padding: 0.4rem 0.65rem 0.5rem;
+      display: flex; flex-direction: column; gap: 0.2rem;
+    }
+    .steps li {
+      font-size: clamp(0.62rem, 0.88vw, 0.74rem);
+      color: rgba(210,224,234,0.68); line-height: 1.3;
+      padding-left: 0.75rem; position: relative;
+    }
+    .steps li::before {
+      content: ""; position: absolute; left: 0; top: 0.45em;
+      width: 5px; height: 5px; border-radius: 50%;
+    }
+    .flow-panel.before .steps li::before { background: var(--before); }
+    .flow-panel.after .steps li::before { background: var(--after); }
+    .steps strong { color: rgba(255,255,255,0.9); font-weight: 600; }
+
+    .footer-note {
+      text-align: center; color: rgba(226,236,244,0.62);
+      font-size: clamp(0.64rem, 0.9vw, 0.76rem); line-height: 1.35;
+      padding: 0.35rem 0.7rem; border-radius: 12px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-note strong { color: #fff; }
+
+    .slide-num {
+      position: absolute; right: 0.85rem; bottom: 0.55rem;
+      font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(210,224,234,0.4);
+    }
+
+    @media (max-width: 820px) {
+      .compare { grid-template-columns: 1fr; }
+      .flow-panel { min-height: 280px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .edge-b-dash, .edge-a-dash, .edge-loop { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="slide">
+    <div class="brand-bar">
+      <img class="billbuddy-logo" src="assets/billbuddy-logo.png" alt="BillBuddy" />
+      <span class="vs-chip"><span></span> works with</span>
+      <img class="tally-logo" src="assets/tally-logo.svg" alt="Tally" />
+    </div>
+
+    <header class="title-bubble">
+      <h1>Why we built separate software</h1>
+      <p class="sub">Tally is the books — not a clerk’s quote desk. Every WhatsApp ask became repeated Tally lookups, PDF printing, and rework.</p>
+    </header>
+
+    <section class="compare" aria-label="Before and after quote flow">
+      <!-- BEFORE -->
+      <article class="flow-panel before">
+        <div class="flow-head">
+          <div class="tag">Before — Tally only</div>
+          <h2>WhatsApp ask → open Tally → lookup → lookup → PDF → resend → post again</h2>
+        </div>
+
+        <div class="flow-diagram" aria-hidden="true">
+          <svg viewBox="0 0 400 520" preserveAspectRatio="none">
+            <defs>
+              <path id="bf-wa-tally" d="M88 52 C160 90, 200 110, 200 145" />
+              <path id="bf-tally-stock" d="M200 170 C160 210, 72 230, 72 250" />
+              <path id="bf-tally-cust" d="M200 170 L200 250" />
+              <path id="bf-tally-rate" d="M200 170 C240 210, 328 230, 328 250" />
+              <path id="bf-tally-pdf" d="M200 275 C200 310, 200 330, 200 355" />
+              <path id="bf-pdf-wa" d="M200 380 C160 420, 100 440, 88 465" />
+              <path id="bf-wa-close" d="M88 465 C 42 400, 42 120, 88 52" />
+            </defs>
+            <use href="#bf-wa-tally" class="edge-b" />
+            <use href="#bf-tally-stock" class="edge-b-dash" />
+            <use href="#bf-tally-cust" class="edge-b-dash" />
+            <use href="#bf-tally-rate" class="edge-b-dash" />
+            <use href="#bf-tally-pdf" class="edge-b" />
+            <use href="#bf-pdf-wa" class="edge-b" />
+            <use href="#bf-wa-close" class="edge-loop" />
+
+            <circle class="pkt-b" r="4" opacity="0">
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="4.5s" repeatCount="indefinite" />
+              <animateMotion dur="4.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#bf-wa-tally" />
+              </animateMotion>
+            </circle>
+            <circle class="pkt-b" r="3.5" opacity="0">
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.2s" begin="0.8s" repeatCount="indefinite" />
+              <animateMotion dur="3.2s" begin="0.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#bf-tally-stock" />
+              </animateMotion>
+            </circle>
+            <circle class="pkt-b" r="3.5" opacity="0">
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.2s" begin="1.1s" repeatCount="indefinite" />
+              <animateMotion dur="3.2s" begin="1.1s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#bf-tally-cust" />
+              </animateMotion>
+            </circle>
+            <circle class="pkt-b" r="3.5" opacity="0">
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.2s" begin="1.4s" repeatCount="indefinite" />
+              <animateMotion dur="3.2s" begin="1.4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#bf-tally-rate" />
+              </animateMotion>
+            </circle>
+            <circle class="pkt-b" r="4" opacity="0">
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.5s" begin="2s" repeatCount="indefinite" />
+              <animateMotion dur="3.5s" begin="2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#bf-tally-pdf" />
+              </animateMotion>
+            </circle>
+            <circle class="pkt-b" r="3.5" opacity="0">
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.5s" begin="2.8s" repeatCount="indefinite" />
+              <animateMotion dur="3.5s" begin="2.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#bf-pdf-wa" />
+              </animateMotion>
+            </circle>
+            <circle class="pkt-b" r="3.5" opacity="0">
+              <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.9;1" dur="3.2s" begin="3.5s" repeatCount="indefinite" />
+              <animateMotion dur="3.2s" begin="3.5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#bf-wa-close" />
+              </animateMotion>
+            </circle>
+          </svg>
+
+          <div class="loop-label">↺ repeat</div>
+
+          <div class="nodes">
+            <div class="fnode b-wa">
+              <div class="icon"><img src="assets/whatsapp.svg" alt="" /></div>
+              <h3>WhatsApp</h3>
+              <p>“Send quote”</p>
+            </div>
+            <div class="fnode b-tally">
+              <div class="icon"><span class="tally-wrap"><img src="assets/tally-logo.svg" alt="" /></span></div>
+              <h3>Tally</h3>
+              <p>Open voucher</p>
+            </div>
+            <div class="fnode lookup b-stock">
+              <h3>Stock lookup</h3>
+              <p>Item name?</p>
+            </div>
+            <div class="fnode lookup b-cust">
+              <h3>Party lookup</h3>
+              <p>Customer?</p>
+            </div>
+            <div class="fnode lookup b-rate">
+              <h3>Rate lookup</h3>
+              <p>MRP / price?</p>
+            </div>
+            <div class="fnode b-pdf">
+              <h3>Print PDF</h3>
+              <p>Save &amp; attach</p>
+            </div>
+            <div class="fnode b-wa2">
+              <div class="icon"><img src="assets/whatsapp.svg" alt="" /></div>
+              <h3>WhatsApp</h3>
+              <p>Send PDF</p>
+            </div>
+          </div>
+        </div>
+
+        <ol class="steps">
+          <li>Customer asks on <strong>WhatsApp</strong> — clerk switches to Tally</li>
+          <li><strong>Repeated lookups</strong> — stock, party, rate, GST slab…</li>
+          <li><strong>Print PDF</strong> → attach on WhatsApp (not a real quote)</li>
+          <li>Changes? <strong>Do it all again</strong> → finally post voucher</li>
+        </ol>
+      </article>
+
+      <!-- AFTER -->
+      <article class="flow-panel after">
+        <div class="flow-head">
+          <div class="tag">After — BillBuddy</div>
+          <h2>One screen → QUOTE on WhatsApp → pay → Process to Tally</h2>
+        </div>
+
+        <div class="flow-diagram" aria-hidden="true">
+          <svg viewBox="0 0 400 520" preserveAspectRatio="none">
+            <defs>
+              <path id="af-wa-bb" d="M88 62 C160 110, 200 140, 200 198" />
+              <path id="af-bb-quote" d="M200 225 C260 280, 312 300, 312 300" />
+              <path id="af-quote-wa" d="M312 300 C 260 200, 160 90, 88 62" />
+              <path id="af-wa-revise" d="M88 78 C 38 78, 38 260, 88 260 C 130 260, 170 230, 200 210" />
+              <path id="af-bb-tally" d="M200 225 C200 300, 200 360, 200 425" />
+            </defs>
+            <use href="#af-wa-bb" class="edge-a" />
+            <use href="#af-bb-quote" class="edge-a-dash" />
+            <use href="#af-quote-wa" class="edge-a" />
+            <use href="#af-wa-revise" class="edge-loop" />
+            <use href="#af-bb-tally" class="edge-a" />
+
+            <circle class="pkt-a" r="4.5" opacity="0">
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="4s" repeatCount="indefinite" />
+              <animateMotion dur="4s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#af-wa-bb" />
+              </animateMotion>
+            </circle>
+            <circle class="pkt-a" r="4" opacity="0">
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.5s" begin="1s" repeatCount="indefinite" />
+              <animateMotion dur="3.5s" begin="1s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#af-bb-quote" />
+              </animateMotion>
+            </circle>
+            <circle class="pkt-a" r="3.5" opacity="0">
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="3.2s" begin="1.8s" repeatCount="indefinite" />
+              <animateMotion dur="3.2s" begin="1.8s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#af-quote-wa" />
+              </animateMotion>
+            </circle>
+            <circle class="pkt-a" r="3.5" opacity="0">
+              <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.9;1" dur="2.8s" begin="2.6s" repeatCount="indefinite" />
+              <animateMotion dur="2.8s" begin="2.6s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#af-wa-revise" />
+              </animateMotion>
+            </circle>
+            <circle class="pkt-a" r="4" opacity="0">
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.9;1" dur="4.5s" begin="3.2s" repeatCount="indefinite" />
+              <animateMotion dur="4.5s" begin="3.2s" repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines="0.4 0 0.2 1">
+                <mpath href="#af-bb-tally" />
+              </animateMotion>
+            </circle>
+          </svg>
+
+          <div class="loop-label">↺ revise</div>
+
+          <div class="nodes">
+            <div class="fnode a-wa">
+              <div class="icon"><img src="assets/whatsapp.svg" alt="" /></div>
+              <h3>WhatsApp</h3>
+              <p>Customer ask</p>
+            </div>
+            <div class="fnode hub a-bb">
+              <div class="icon"><img src="assets/billbuddy-logo.png" alt="" /></div>
+              <h3>BillBuddy</h3>
+              <p>Catalog + customer ready</p>
+            </div>
+            <div class="fnode a-quote">
+              <h3>QUOTE</h3>
+              <p>One tap send</p>
+            </div>
+            <div class="fnode a-tally">
+              <div class="icon"><span class="tally-wrap"><img src="assets/tally-logo.svg" alt="" /></span></div>
+              <h3>Tally</h3>
+              <p>Process → voucher</p>
+            </div>
+          </div>
+        </div>
+
+        <ol class="steps">
+          <li><strong>Synced data</strong> — items, customers, rates already there</li>
+          <li>Build quote in <strong>BillBuddy</strong> — no Tally hunting</li>
+          <li>Send <strong>QUOTE</strong> on WhatsApp + <strong>pay link</strong></li>
+          <li><strong>Process</strong> once — matching voucher in Tally</li>
+        </ol>
+      </article>
+    </section>
+
+    <p class="footer-note">
+      <strong>Root cause:</strong> Tally is built for accounting compliance, not high-frequency quote edits on WhatsApp. BillBuddy is the ops layer that stays aligned with Tally.
+    </p>
+    <div class="slide-num">02 · Why BillBuddy</div>
+  </main>
+</body>
+</html>

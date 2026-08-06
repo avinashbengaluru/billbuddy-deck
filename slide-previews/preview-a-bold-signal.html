@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preview A — Bold Signal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    html, body { height: 100%; margin: 0; overflow: hidden; font-family: "Space Grotesk", sans-serif; background: #1a1a1a; color: #fff; }
+    .slide { width: 100vw; height: 100dvh; overflow: hidden; display: flex; flex-direction: column; padding: clamp(0.8rem, 2.5vw, 1.75rem); box-sizing: border-box;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%); }
+    .tag { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; margin-bottom: 0.4rem; }
+    h1 { font-family: "Archivo Black", sans-serif; font-size: clamp(1.4rem, 4vw, 2.6rem); line-height: 0.95; margin: 0 0 0.5rem; max-width: 14ch; }
+    .sub { font-size: clamp(0.75rem, 1.3vw, 1rem); opacity: 0.7; max-width: 40rem; margin-bottom: clamp(0.6rem, 2vh, 1.2rem); }
+    .split { flex: 1; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(0.6rem, 1.5vw, 1.1rem); }
+    .card { border-radius: 1.1rem; padding: clamp(0.7rem, 1.6vw, 1.1rem); display: flex; flex-direction: column; gap: 0.45rem; min-height: 0; overflow: hidden; }
+    .before { background: #FF5722; color: #1a1a1a; }
+    .after { background: #111; border: 1px solid #333; color: #fff; }
+    .label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+    h2 { font-family: "Archivo Black", sans-serif; font-size: clamp(0.9rem, 1.6vw, 1.2rem); margin: 0; line-height: 1.15; }
+    .viz { flex: 1; min-height: 0; border-radius: 0.7rem; overflow: hidden; background: #0a0a0a; }
+    .viz img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .after .viz { display: grid; grid-template-columns: 1.4fr 0.8fr; gap: 0.35rem; background: transparent; }
+    .after .viz img { border-radius: 0.5rem; object-fit: cover; }
+    ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.25rem; }
+    li { font-size: clamp(0.68rem, 1.05vw, 0.85rem); line-height: 1.25; }
+    .num { font-weight: 700; opacity: 0.55; margin-right: 0.25rem; }
+    .preset { position: absolute; top: 0.7rem; right: 1rem; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; }
+  </style>
+</head>
+<body>
+  <div class="preset">Preview A · Bold Signal</div>
+  <main class="slide">
+    <div class="tag">BillBuddy × Tally</div>
+    <h1>Quote on WhatsApp — then changes</h1>
+    <p class="sub">Old way: temp invoice → PDF → WhatsApp → edit/resend → chase pay → retype into Tally.</p>
+    <div class="split">
+      <section class="card before">
+        <div class="label">Before</div>
+        <h2>Temp invoice · PDF · resend · retype</h2>
+        <div class="viz"><img src="../assets/before-whatsapp-temp-invoice.png" alt="" /></div>
+        <ul>
+          <li><span class="num">01</span> Ask on WhatsApp</li>
+          <li><span class="num">02</span> Make temp invoice + PDF</li>
+          <li><span class="num">03</span> Edit & resend for every change</li>
+          <li><span class="num">04</span> Chase pay, then retype in Tally</li>
+        </ul>
+      </section>
+      <section class="card after">
+        <div class="label">After — BillBuddy</div>
+        <h2>App + WhatsApp quote → Process → Tally</h2>
+        <div class="viz">
+          <img src="../assets/billbuddy-laptop-ui.png" alt="" />
+          <img src="../assets/real-quote-TEMP-633519.jpg" alt="" />
+        </div>
+        <ul>
+          <li><span class="num">01</span> Open ask in BillBuddy</li>
+          <li><span class="num">02</span> Auto QUOTE via WhatsApp Business API</li>
+          <li><span class="num">03</span> Pay link / UPI in the same chat</li>
+          <li><span class="num">04</span> Process → matching Tally voucher</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

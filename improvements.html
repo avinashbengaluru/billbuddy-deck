@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Improvements Over Tally</title>
+  <style>
+    .improvements-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem;
+      min-height: 0; padding-top: 0.1rem;
+    }
+    .imp-card {
+      background: rgba(8, 18, 28, 0.85);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 0;
+      display: flex; flex-direction: row; justify-content: space-between;
+      position: relative; overflow: hidden;
+    }
+    .imp-card::before {
+      content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: linear-gradient(180deg, #34d399, #0ea5e9);
+      z-index: 2;
+    }
+    .imp-card.ai-driven::before {
+      background: linear-gradient(180deg, #a855f7, #ec4899);
+    }
+    
+    .imp-card-text {
+      flex: 1; padding: 0.45rem 0.6rem 0.45rem 0.85rem;
+      display: flex; flex-direction: column; justify-content: center; gap: 0.2rem;
+    }
+    
+    .imp-card h3 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(0.9rem, 1.15vw, 1.05rem); font-weight: 600; color: #f4fafc;
+      margin-bottom: 0.05rem;
+    }
+    .imp-row {
+      display: flex; align-items: flex-start; gap: 0.35rem; font-size: clamp(0.62rem, 0.8vw, 0.72rem);
+      line-height: 1.3;
+    }
+    .imp-row.bad { color: rgba(251,146,60,0.85); }
+    .imp-row.good { color: #5eead4; }
+    .imp-row.good span strong { color: #ccfbf1; font-weight: 700; }
+    .imp-row.bad span strong { color: #fed7aa; font-weight: 700; }
+    .imp-row .icon { font-weight: bold; flex-shrink: 0; font-size: 0.7rem; }
+    
+    .diagram-mini {
+      width: 195px;
+      background: rgba(4, 10, 18, 0.75);
+      border-left: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      padding: 0.2rem;
+    }
+    .diagram-mini svg { width: 100%; height: 100%; display: block; }
+    
+    /* Animation Keyframes */
+    /* Card 1: Onboarding */
+    .c1-cash-lost { animation: fadeCash 3s infinite; }
+    @keyframes fadeCash { 0%, 30% { opacity: 0; transform: translateY(-5px); } 40%, 80% { opacity: 1; transform: translateY(0); } 90%, 100% { opacity: 0; } }
+    .c1-profile-saved { animation: saveProfile 3s infinite; }
+    @keyframes saveProfile { 0%, 20% { opacity: 0; transform: scale(0.8); } 40%, 90% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 4px #34d399); } 100% { opacity: 0; } }
+
+    /* Card 2: Workflow */
+    .c2-retype-pencil { animation: pencilMove 2.5s ease-in-out infinite; }
+    @keyframes pencilMove { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(4px, -3px); } }
+    .c2-auto-pulse { animation: autoPulse 2s ease-in-out infinite; }
+    @keyframes autoPulse { 0%, 100% { fill: #34d399; opacity: 0.4; } 50% { fill: #5eead4; opacity: 1; filter: drop-shadow(0 0 6px #34d399); } }
+
+    /* Card 3: Comms */
+    .c3-lost-msg { animation: lostMsg 3s infinite; }
+    @keyframes lostMsg { 0% { opacity: 0; transform: translate(0, 0); } 30% { opacity: 1; } 70%, 100% { opacity: 0; transform: translate(-8px, -12px); } }
+    .c3-sync-msg { animation: syncMsg 2s linear infinite; }
+    @keyframes syncMsg { 0% { opacity: 0; transform: translateX(0); } 20%, 80% { opacity: 1; } 100% { opacity: 0; transform: translateX(35px); } }
+
+    /* Card 4: Analytics */
+    .c4-manual-spin { animation: spinWheel 4s linear infinite; transform-origin: 97px 18px; }
+    @keyframes spinWheel { 100% { transform: rotate(360deg); } }
+    .c4-live-chart { animation: liveBar 2s ease-in-out infinite alternate; transform-origin: bottom; }
+    @keyframes liveBar { 0% { transform: scaleY(0.3); } 100% { transform: scaleY(1); filter: drop-shadow(0 0 3px #34d399); } }
+
+    /* Card 5: Catalog */
+    .c5-sparkle { animation: sparklePulse 1.5s ease-in-out infinite alternate; }
+    @keyframes sparklePulse { 0% { transform: scale(0.8); opacity: 0.6; } 100% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 5px #a855f7); } }
+
+    /* Card 6: Purchase OCR */
+    .c6-scan-line { animation: scanPaper 2s ease-in-out infinite alternate; }
+    @keyframes scanPaper { 0% { transform: translateY(0); } 100% { transform: translateY(35px); } }
+    .c6-extracted-badge { animation: badgeFly 2s ease-in-out infinite; }
+    @keyframes badgeFly { 0%, 20% { opacity: 0; transform: translate(-10px, 8px); } 50%, 85% { opacity: 1; transform: translate(0, 0); filter: drop-shadow(0 0 3px #a855f7); } 95%, 100% { opacity: 0; } }
+
+    /* Card 7: Infra */
+    .c7-jam-traffic { animation: jamTraffic 3s infinite; }
+    @keyframes jamTraffic { 0% { transform: translateX(0); opacity: 1; } 30%, 70% { transform: translateX(25px); opacity: 1; fill: #ef4444; filter: drop-shadow(0 0 4px #ef4444); } 80%, 100% { transform: translateX(25px); opacity: 0; } }
+    .c7-stream-dot { animation: streamData 1.5s linear infinite; }
+    @keyframes streamData { 0% { opacity: 0; transform: translateX(0); } 20%, 80% { opacity: 1; } 100% { opacity: 0; transform: translateX(50px); } }
+    /* Small monitor height responsive rules */
+    @media (max-height: 800px) {
+      .improvements-grid { gap: 0.25rem; }
+      .imp-card-text { padding: 0.3rem 0.5rem 0.3rem 0.7rem; gap: 0.12rem; }
+      .imp-card h3 { font-size: 0.85rem; }
+      .imp-row { font-size: 0.6rem; line-height: 1.22; }
+      .diagram-mini { width: 160px; }
+      .title-bubble { padding: 0.25rem 1rem; }
+      .title-bubble h1 { font-size: 1.1rem; }
+      .title-bubble .sub { margin-top: 0.08rem; font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="slide">
+    <div class="brand-bar">
+      <img class="billbuddy-logo" src="assets/billbuddy-logo.png" alt="BillBuddy" />
+      <span style="color:rgba(255,255,255,0.55);font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">IMPACT</span>
+    </div>
+
+    <header class="title-bubble" style="padding: 0.3rem 1.15rem 0.35rem;">
+      <h1 style="font-size: clamp(1.15rem, 2vw, 1.45rem);">Bottlenecks Eliminated</h1>
+      <p class="sub" style="margin-top:0.15rem; font-size: clamp(0.72rem, 0.95vw, 0.82rem);">How BillBuddy systematically reduces friction, steps, and dead ends compared to Tally.</p>
+    </header>
+
+    <div class="improvements-grid">
+      
+      <!-- 1. Onboarding -->
+      <div class="imp-card">
+        <div class="imp-card-text">
+          <h3>Customer Onboarding</h3>
+          <div class="imp-row bad"><span class="icon">✕</span> <span><strong>Tally:</strong> 3 complex screens. Clerks skip and select "Cash" ledger to save time, losing customer data.</span></div>
+          <div class="imp-row good"><span class="icon">✓</span> <span><strong>BillBuddy:</strong> 1 step. Real customer profiles (name, phone, GST) captured naturally during quote creation.</span></div>
+        </div>
+        <div class="diagram-mini">
+          <svg viewBox="0 0 180 75" preserveAspectRatio="xMidYMid meet">
+            <!-- Tally Top -->
+            <text x="6" y="18" font-size="7" fill="#fca5a5" font-weight="bold">TALLY</text>
+            <rect x="42" y="8" width="20" height="14" rx="2" fill="#1e293b" stroke="#475569"/>
+            <text x="52" y="17" font-size="5" fill="#94a3b8" text-anchor="middle">Step 1</text>
+            <path d="M 62 15 L 68 15" stroke="#475569"/>
+            <rect x="69" y="8" width="20" height="14" rx="2" fill="#1e293b" stroke="#475569"/>
+            <text x="79" y="17" font-size="5" fill="#94a3b8" text-anchor="middle">Step 2</text>
+            <path d="M 89 15 L 95 15" stroke="#475569"/>
+            <rect x="96" y="8" width="26" height="14" rx="2" fill="#450a0a" stroke="#ef4444"/>
+            <text x="109" y="17" font-size="6" fill="#fca5a5" text-anchor="middle" font-weight="bold">"CASH"</text>
+            <text class="c1-cash-lost" x="127" y="17" font-size="7" fill="#ef4444">⚠️ Lost!</text>
+
+            <!-- Divider -->
+            <line x1="6" y1="36" x2="174" y2="36" stroke="#334155" stroke-dasharray="2 2"/>
+
+            <!-- BillBuddy Bottom -->
+            <text x="6" y="56" font-size="7" fill="#5eead4" font-weight="bold">BILLBUDDY</text>
+            <rect x="58" y="43" width="65" height="24" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>
+            <circle cx="68" cy="55" r="5" fill="#34d399"/>
+            <text x="78" y="52" font-size="6" fill="#ccfbf1" font-weight="bold">John Doe</text>
+            <text x="78" y="60" font-size="5" fill="#6ee7b7">+91 98765...</text>
+            <g class="c1-profile-saved">
+              <text x="128" y="58" font-size="8" fill="#34d399" font-weight="bold">✓ Saved!</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 2. Workflow -->
+      <div class="imp-card">
+        <div class="imp-card-text">
+          <h3>Quote-to-Cash Workflow</h3>
+          <div class="imp-row bad"><span class="icon">✕</span> <span><strong>Tally:</strong> Quote made in Excel → PDF sent on WA → Clerk re-types quote into Tally manually.</span></div>
+          <div class="imp-row good"><span class="icon">✓</span> <span><strong>BillBuddy:</strong> Closed loop. Quote generated directly in WhatsApp converts to invoice in 1 click.</span></div>
+        </div>
+        <div class="diagram-mini">
+          <svg viewBox="0 0 180 75" preserveAspectRatio="xMidYMid meet">
+            <!-- Tally Top -->
+            <text x="6" y="18" font-size="7" fill="#fca5a5" font-weight="bold">TALLY</text>
+            <rect x="42" y="8" width="18" height="14" rx="2" fill="#1e293b" stroke="#475569"/>
+            <text x="51" y="17" font-size="5" fill="#94a3b8" text-anchor="middle">XLS</text>
+            <path d="M 60 15 L 68 15" stroke="#475569"/>
+            <rect x="69" y="8" width="18" height="14" rx="2" fill="#1e293b" stroke="#475569"/>
+            <text x="78" y="17" font-size="5" fill="#94a3b8" text-anchor="middle">PDF</text>
+            <path d="M 87 15 L 95 15" stroke="#ef4444" stroke-dasharray="2 2"/>
+            <g class="c2-retype-pencil">
+              <rect x="96" y="8" width="28" height="14" rx="2" fill="#450a0a" stroke="#ef4444"/>
+              <text x="110" y="17" font-size="5" fill="#fca5a5" text-anchor="middle">Re-type ✏️</text>
+            </g>
+
+            <!-- Divider -->
+            <line x1="6" y1="36" x2="174" y2="36" stroke="#334155" stroke-dasharray="2 2"/>
+
+            <!-- BillBuddy Bottom -->
+            <text x="6" y="56" font-size="7" fill="#5eead4" font-weight="bold">BILLBUDDY</text>
+            <rect x="55" y="44" width="26" height="20" rx="3" fill="#0f172a" stroke="#34d399"/>
+            <text x="68" y="56" font-size="6" fill="#6ee7b7" text-anchor="middle">QUOTE</text>
+            <path d="M 81 54 L 98 54" stroke="#34d399" stroke-width="2"/>
+            <text x="89" y="50" font-size="5" fill="#5eead4" text-anchor="middle">1-Click</text>
+            <rect class="c2-auto-pulse" x="100" y="44" width="30" height="20" rx="3" stroke="#34d399" stroke-width="1.5"/>
+            <text x="115" y="56" font-size="6" fill="#0f172a" font-weight="bold" text-anchor="middle">INVOICE</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 3. Comms -->
+      <div class="imp-card">
+        <div class="imp-card-text">
+          <h3>Customer Communications</h3>
+          <div class="imp-row bad"><span class="icon">✕</span> <span><strong>Tally:</strong> Disconnected. Negotiation chats live on personal clerk phones and disappear.</span></div>
+          <div class="imp-row good"><span class="icon">✓</span> <span><strong>BillBuddy:</strong> Official WA API. Every quote, reply, and invoice is linked to customer history.</span></div>
+        </div>
+        <div class="diagram-mini">
+          <svg viewBox="0 0 180 75" preserveAspectRatio="xMidYMid meet">
+            <!-- Tally Top -->
+            <text x="6" y="18" font-size="7" fill="#fca5a5" font-weight="bold">TALLY</text>
+            <rect x="45" y="6" width="16" height="22" rx="2" fill="#1e293b" stroke="#ef4444"/>
+            <text x="53" y="19" font-size="7" fill="#ef4444" text-anchor="middle">📱</text>
+            <g class="c3-lost-msg">
+              <rect x="70" y="8" width="30" height="14" rx="2" fill="#450a0a" stroke="#ef4444"/>
+              <text x="85" y="17" font-size="5" fill="#fca5a5" text-anchor="middle">Chat lost ❓</text>
+            </g>
+
+            <!-- Divider -->
+            <line x1="6" y1="36" x2="174" y2="36" stroke="#334155" stroke-dasharray="2 2"/>
+
+            <!-- BillBuddy Bottom -->
+            <text x="6" y="56" font-size="7" fill="#5eead4" font-weight="bold">BILLBUDDY</text>
+            <rect x="55" y="44" width="22" height="22" rx="3" fill="#064e3b" stroke="#34d399"/>
+            <text x="66" y="58" font-size="8" fill="#25D366" text-anchor="middle">💬</text>
+            <circle class="c3-sync-msg" cx="80" cy="55" r="3" fill="#34d399"/>
+            <rect x="120" y="44" width="35" height="22" rx="3" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+            <text x="137" y="53" font-size="5" fill="#6ee7b7" text-anchor="middle" font-weight="bold">CUSTOMER</text>
+            <text x="137" y="61" font-size="5" fill="#6ee7b7" text-anchor="middle">HISTORY</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 4. Analytics -->
+      <div class="imp-card">
+        <div class="imp-card-text">
+          <h3>Data & Analytics</h3>
+          <div class="imp-row bad"><span class="icon">✕</span> <span><strong>Tally:</strong> No real-time reporting. Must export ledgers to Excel and build manual pivots.</span></div>
+          <div class="imp-row good"><span class="icon">✓</span> <span><strong>BillBuddy:</strong> Cloud Postgres database enables real-time executive dashboards & custom APIs.</span></div>
+        </div>
+        <div class="diagram-mini">
+          <svg viewBox="0 0 180 75" preserveAspectRatio="xMidYMid meet">
+            <!-- Tally Top -->
+            <text x="6" y="18" font-size="7" fill="#fca5a5" font-weight="bold">TALLY</text>
+            <rect x="45" y="8" width="26" height="20" rx="2" fill="#1e293b" stroke="#475569"/>
+            <text x="58" y="20" font-size="5" fill="#94a3b8" text-anchor="middle">Raw Dump</text>
+            <path d="M 71 18 L 80 18" stroke="#475569"/>
+            <rect x="81" y="8" width="24" height="20" rx="2" fill="#450a0a" stroke="#ef4444"/>
+            <text x="93" y="16" font-size="5" fill="#fca5a5" text-anchor="middle">Manual</text>
+            <g class="c4-manual-spin">
+              <text x="93" y="24" font-size="6" text-anchor="middle">⚙️</text>
+            </g>
+
+            <!-- Divider -->
+            <line x1="6" y1="36" x2="174" y2="36" stroke="#334155" stroke-dasharray="2 2"/>
+
+            <!-- BillBuddy Bottom -->
+            <text x="6" y="56" font-size="7" fill="#5eead4" font-weight="bold">BILLBUDDY</text>
+            <rect x="55" y="44" width="70" height="24" rx="3" fill="#0f172a" stroke="#34d399" stroke-width="1.5"/>
+            <text x="90" y="52" font-size="5" fill="#5eead4" text-anchor="middle" font-weight="bold">LIVE DASHBOARD</text>
+            <rect class="c4-live-chart" x="62" y="56" width="6" height="10" fill="#34d399"/>
+            <rect class="c4-live-chart" x="72" y="54" width="6" height="12" fill="#34d399" style="animation-delay: 0.2s"/>
+            <rect class="c4-live-chart" x="82" y="58" width="6" height="8" fill="#34d399" style="animation-delay: 0.4s"/>
+            <path d="M 94 64 L 102 58 L 110 60 L 118 54" fill="none" stroke="#5eead4" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 5. Catalog -->
+      <div class="imp-card ai-driven">
+        <div class="imp-card-text">
+          <h3>Product Catalog (AI)</h3>
+          <div class="imp-row bad"><span class="icon">✕</span> <span><strong>Tally:</strong> Messy ledger text ("10mm blk shirt"), no images, no structured variant groups.</span></div>
+          <div class="imp-row good"><span class="icon">✓</span> <span><strong>BillBuddy:</strong> AI cleans raw strings into a rich catalog with specs, images, and variants.</span></div>
+        </div>
+        <div class="diagram-mini">
+          <svg viewBox="0 0 180 75" preserveAspectRatio="xMidYMid meet">
+            <!-- Messy Raw Strings -->
+            <rect x="8" y="10" width="50" height="55" rx="3" fill="#1e293b" stroke="#ef4444" stroke-width="1"/>
+            <text x="12" y="24" font-size="5" fill="#fca5a5" font-family="monospace">"10MM BLK SHT"</text>
+            <text x="12" y="38" font-size="5" fill="#fca5a5" font-family="monospace">"BLK SHT 10 MM"</text>
+            <text x="12" y="52" font-size="5" fill="#fca5a5" font-family="monospace">"SHIRT 10 BLK"</text>
+            
+            <!-- AI Magic Wand -->
+            <g class="c5-sparkle">
+              <text x="70" y="42" font-size="12" text-anchor="middle">✨</text>
+            </g>
+
+            <!-- Clean Catalog Card -->
+            <rect x="88" y="10" width="84" height="55" rx="4" fill="#0f172a" stroke="#a855f7" stroke-width="1.5"/>
+            <rect x="94" y="16" width="16" height="16" rx="2" fill="#a855f7" opacity="0.6"/>
+            <text x="102" y="27" font-size="8" text-anchor="middle">👕</text>
+            <text x="114" y="22" font-size="6" fill="#d8b4fe" font-weight="bold">Cotton Shirt</text>
+            <text x="114" y="30" font-size="5" fill="#94a3b8">10mm Variant</text>
+            
+            <!-- Color & Size Badges -->
+            <rect x="94" y="40" width="14" height="10" rx="2" fill="#38bdf8"/>
+            <text x="101" y="47" font-size="5" fill="#0f172a" font-weight="bold" text-anchor="middle">S</text>
+            <rect x="111" y="40" width="14" height="10" rx="2" fill="#38bdf8"/>
+            <text x="118" y="47" font-size="5" fill="#0f172a" font-weight="bold" text-anchor="middle">M</text>
+            <rect x="128" y="40" width="14" height="10" rx="2" fill="#38bdf8"/>
+            <text x="135" y="47" font-size="5" fill="#0f172a" font-weight="bold" text-anchor="middle">L</text>
+          </svg>
+        </div>
+      </div>
+      
+      <!-- 6. Purchase & Batch (Combined) -->
+      <div class="imp-card ai-driven">
+        <div class="imp-card-text">
+          <h3>Purchase & Batch/Expiry (AI)</h3>
+          <div class="imp-row bad"><span class="icon">✕</span> <span><strong>Tally:</strong> Manual typing of line items from supplier bills. Clerks skip batch/expiry to save time.</span></div>
+          <div class="imp-row good"><span class="icon">✓</span> <span><strong>BillBuddy:</strong> AI OCR scans printed bills, extracting items, batch numbers, and expiry dates.</span></div>
+        </div>
+        <div class="diagram-mini">
+          <svg viewBox="0 0 180 75" preserveAspectRatio="xMidYMid meet">
+            <!-- Printed Bill -->
+            <rect x="8" y="10" width="38" height="55" rx="2" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+            <line x1="13" y1="20" x2="38" y2="20" stroke="#475569"/>
+            <line x1="13" y1="30" x2="40" y2="30" stroke="#475569"/>
+            <rect x="13" y="38" width="28" height="7" fill="#a855f7" opacity="0.4"/>
+            <text x="14" y="43" font-size="4.5" fill="#d8b4fe">B-102 | EXP 12/28</text>
+            
+            <!-- Red Scanner Laser -->
+            <rect class="c6-scan-line" x="6" y="10" width="42" height="2" fill="#ef4444" filter="drop-shadow(0 0 3px #ef4444)"/>
+
+            <!-- Arrow -->
+            <path d="M 50 38 L 75 38" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+            <!-- Extracted Database Fields -->
+            <g class="c6-extracted-badge">
+              <rect x="82" y="14" width="88" height="20" rx="3" fill="#0f172a" stroke="#a855f7" stroke-width="1.5"/>
+              <text x="88" y="27" font-size="6" fill="#d8b4fe" font-weight="bold">BATCH: B-102</text>
+              <rect x="82" y="42" width="88" height="20" rx="3" fill="#0f172a" stroke="#a855f7" stroke-width="1.5"/>
+              <text x="88" y="55" font-size="6" fill="#d8b4fe" font-weight="bold">EXPIRY: 12/2028</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 7. Cloud vs Repo (Spans full width) -->
+      <div class="imp-card" style="grid-column: span 2;">
+        <div class="imp-card-text" style="padding-right: 1rem;">
+          <h3>Cloud Infrastructure vs Structured Repository</h3>
+          <div class="imp-row bad"><span class="icon">✕</span> <span><strong>Tally Cloud:</strong> Streams a remote VM video feed of desktop `.exe`. High bandwidth lag, unusable mobile UI, zero system APIs.</span></div>
+          <div class="imp-row good"><span class="icon">✓</span> <span><strong>BillBuddy:</strong> Cloud-native Postgres repository with REST APIs. Native mobile UX, multi-device scale, and instant 3rd-party integration.</span></div>
+        </div>
+        <div class="diagram-mini" style="width: 340px;">
+          <svg viewBox="0 0 340 75" preserveAspectRatio="xMidYMid meet">
+            <!-- Tally Side -->
+            <text x="25" y="15" font-size="7" fill="#fca5a5" font-weight="bold">TALLY VM (Video Stream RDP)</text>
+            <rect x="15" y="22" width="30" height="42" rx="3" fill="#450a0a" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="30" y="40" font-size="9" fill="#fca5a5" text-anchor="middle" font-weight="bold">VM</text>
+            <text x="30" y="52" font-size="5" fill="#ef4444" text-anchor="middle">.exe</text>
+            
+            <!-- Connection Line with Traffic Jam -->
+            <path d="M 45 43 L 115 43" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <circle class="c7-jam-traffic" cx="50" cy="43" r="4" />
+            <rect x="115" y="32" width="18" height="22" rx="2" fill="#0f172a" stroke="#ef4444"/>
+            <text x="124" y="46" font-size="7" text-anchor="middle">📹</text>
+
+            <!-- Divider -->
+            <line x1="150" y1="10" x2="150" y2="68" stroke="#334155" stroke-dasharray="3 3" stroke-width="1.5"/>
+
+            <!-- BillBuddy Side -->
+            <text x="185" y="15" font-size="7" fill="#5eead4" font-weight="bold">BILLBUDDY REPO (REST APIs)</text>
+            <rect x="165" y="22" width="26" height="42" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="1.5"/>
+            <text x="178" y="40" font-size="8" fill="#6ee7b7" text-anchor="middle" font-weight="bold">DB</text>
+            <text x="178" y="52" font-size="5" fill="#34d399" text-anchor="middle">API</text>
+            
+            <!-- 3 Streams -->
+            <path d="M 191 43 L 255 27" stroke="#34d399" stroke-width="1.5" opacity="0.6"/>
+            <path d="M 191 43 L 255 43" stroke="#34d399" stroke-width="1.5" opacity="0.6"/>
+            <path d="M 191 43 L 255 59" stroke="#34d399" stroke-width="1.5" opacity="0.6"/>
+
+            <circle class="c7-stream-dot" cx="192" cy="43" r="3" fill="#34d399"/>
+            <circle class="c7-stream-dot" cx="192" cy="43" r="3" fill="#34d399" style="animation-delay: 0.5s"/>
+            <circle class="c7-stream-dot" cx="192" cy="43" r="3" fill="#34d399" style="animation-delay: 1s"/>
+
+            <!-- 3 Devices -->
+            <rect x="255" y="18" width="18" height="18" rx="2" fill="#0f172a" stroke="#34d399"/>
+            <text x="264" y="30" font-size="7" text-anchor="middle">📱</text>
+            
+            <rect x="255" y="34" width="18" height="18" rx="2" fill="#0f172a" stroke="#34d399"/>
+            <text x="264" y="46" font-size="7" text-anchor="middle">💻</text>
+            
+            <rect x="255" y="50" width="18" height="18" rx="2" fill="#0f172a" stroke="#34d399"/>
+            <text x="264" y="62" font-size="7" text-anchor="middle">🔌</text>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="slide-num">06 · IMPACT</div>
+  </main>
+</body>
+</html>

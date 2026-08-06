@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preview B — Swiss Modern</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    html, body { height: 100%; margin: 0; overflow: hidden; font-family: "Nunito", sans-serif; background: #fff; color: #000; }
+    .slide { width: 100vw; height: 100dvh; overflow: hidden; display: grid; grid-template-rows: auto auto minmax(0,1fr); gap: clamp(0.5rem, 1.5vh, 1rem); padding: clamp(0.8rem, 2.5vw, 1.75rem); box-sizing: border-box; position: relative; }
+    .slide::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+    .brand { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+    .brand span { color: #ff3300; }
+    h1 { font-family: "Archivo", sans-serif; font-weight: 800; font-size: clamp(1.4rem, 4vw, 2.7rem); line-height: 0.95; margin: 0; max-width: 16ch; position: relative; }
+    .sub { font-size: clamp(0.75rem, 1.2vw, 0.98rem); max-width: 36rem; color: #333; margin-top: 0.35rem; position: relative; }
+    .rule { height: 4px; width: 72px; background: #ff3300; margin-top: 0.5rem; }
+    .split { min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 2px solid #000; position: relative; }
+    .col { min-height: 0; display: grid; grid-template-rows: auto minmax(0,1fr) auto; padding: clamp(0.6rem, 1.4vw, 1rem); overflow: hidden; }
+    .before { border-right: 2px solid #000; background: #f4f4f4; }
+    .after { background: #fff; }
+    .label { font-family: "Archivo", sans-serif; font-weight: 800; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .before .label { color: #ff3300; }
+    h2 { font-family: "Archivo", sans-serif; font-weight: 700; font-size: clamp(0.85rem, 1.4vw, 1.1rem); margin: 0.25rem 0 0.45rem; line-height: 1.15; }
+    .viz { min-height: 0; overflow: hidden; border: 1px solid #000; background: #111; }
+    .viz img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .after .viz { display: grid; grid-template-columns: 1.35fr 0.85fr; }
+    .after .viz img:last-child { border-left: 1px solid #000; object-fit: cover; object-position: top; }
+    ol { list-style: none; padding: 0; margin: 0.45rem 0 0; display: grid; gap: 0.2rem; counter-reset: step; }
+    li { font-size: clamp(0.68rem, 1vw, 0.82rem); line-height: 1.25; counter-increment: step; display: grid; grid-template-columns: 1.4rem 1fr; gap: 0.35rem; }
+    li::before { content: counter(step, decimal-leading-zero); font-family: "Archivo", sans-serif; font-weight: 800; font-size: 0.7rem; color: #ff3300; }
+    .preset { position: absolute; top: 0.7rem; right: 1rem; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.35; z-index: 2; }
+  </style>
+</head>
+<body>
+  <div class="preset">Preview B · Swiss Modern</div>
+  <main class="slide">
+    <div class="brand">BillBuddy <span>×</span> Tally</div>
+    <div>
+      <h1>Customer asks for a quote on WhatsApp — then asks for changes</h1>
+      <p class="sub">Old way: temp invoice → PDF → WhatsApp → edit/resend → chase pay → retype into Tally.</p>
+      <div class="rule"></div>
+    </div>
+    <div class="split">
+      <section class="col before">
+        <div>
+          <div class="label">Before</div>
+          <h2>Temp invoice · PDF · resend · retype</h2>
+        </div>
+        <div class="viz"><img src="../assets/before-whatsapp-temp-invoice.png" alt="" /></div>
+        <ol>
+          <li>Ask on WhatsApp</li>
+          <li>Temp invoice + PDF send</li>
+          <li>Edit & resend for changes</li>
+          <li>Chase pay, retype in Tally</li>
+        </ol>
+      </section>
+      <section class="col after">
+        <div>
+          <div class="label">After</div>
+          <h2>BillBuddy + WhatsApp quote → Tally</h2>
+        </div>
+        <div class="viz">
+          <img src="../assets/billbuddy-laptop-ui.png" alt="" />
+          <img src="../assets/real-quote-TEMP-633519.jpg" alt="" />
+        </div>
+        <ol>
+          <li>Open ask in BillBuddy</li>
+          <li>QUOTE via WhatsApp Business API</li>
+          <li>Pay link / UPI in chat</li>
+          <li>Process → matching Tally voucher</li>
+        </ol>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
