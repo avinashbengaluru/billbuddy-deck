@@ -101,18 +101,26 @@
       font-size: 0.82rem; line-height: 1.45; color: rgba(226,232,240,0.85); margin-bottom: 0.6rem;
     }
 
-    /* Image Preview Cards */
-    .img-preview-wrap {
-      width: 100%; border-radius: 12px; overflow: hidden;
+    /* Image Preview Container with Scanner Overlay */
+    .img-scanner-box {
+      position: relative; width: 100%; border-radius: 12px; overflow: hidden;
       border: 1px solid rgba(255,255,255,0.14); margin: 0.6rem 0;
       background: #020610; box-shadow: 0 6px 20px rgba(0,0,0,0.4);
     }
-    .img-preview-wrap img {
-      width: 100%; height: auto; display: block; object-fit: cover;
+    .img-scanner-box img { width: 100%; height: auto; display: block; object-fit: cover; }
+    
+    /* Animated Laser Scanner Line Overlay */
+    .laser-beam {
+      position: absolute; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, transparent, #a855f7, #5eead4, transparent);
+      box-shadow: 0 0 12px #a855f7, 0 0 20px #5eead4;
+      animation: scanSweep 2.4s ease-in-out infinite; z-index: 10;
     }
-    .img-caption {
-      font-size: 0.68rem; color: rgba(226,232,240,0.65); text-align: center;
-      padding: 0.4rem 0.6rem; background: rgba(5,15,25,0.9); border-top: 1px solid rgba(255,255,255,0.06);
+    @keyframes scanSweep {
+      0% { top: 5%; opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 1; }
+      100% { top: 92%; opacity: 0; }
     }
 
     /* SVG Diagram Canvas on Mobile */
@@ -166,7 +174,7 @@
     }
     .diagram-mini-m svg { width: 100%; height: 100%; }
 
-    /* Animation Keyframes */
+    /* Keyframe Animations */
     .c1-cash-lost { animation: blinkWarn 1.5s ease-in-out infinite; }
     @keyframes blinkWarn { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     .c1-profile-saved { animation: pulseSave 2s ease-in-out infinite; }
@@ -251,7 +259,7 @@
 
   <!-- Swipe Hint Bar -->
   <div class="swipe-hint-bar" id="swipeHint">
-    👈 Swipe left to explore · 10 Interactive Cards
+    👈 Swipe left to explore · 10 Animated Cards
   </div>
 
   <!-- Mobile Deck Slides -->
@@ -263,6 +271,28 @@
         <span class="tag-pill cyan">System Overview</span>
         <h1 class="m-title">BillBuddy + Tally Prime</h1>
         <p class="m-body">Why a specialized frontend operational web app gives clerks 10× speed while preserving Tally as the immutable general ledger.</p>
+      </div>
+
+      <!-- Animated SVG Hero Loop -->
+      <div class="m-svg-container">
+        <svg viewBox="0 0 500 120">
+          <rect x="20" y="30" width="130" height="60" rx="8" fill="#0f172a" stroke="#5eead4" stroke-width="2"/>
+          <text x="85" y="58" font-size="11" fill="#5eead4" font-weight="bold" text-anchor="middle">BILLBUDDY WEB</text>
+          <text x="85" y="73" font-size="8" fill="#94a3b8" text-anchor="middle">Fast Clerk UI</text>
+
+          <!-- Glowing Animated Arrow Stream -->
+          <path d="M 150 60 L 350 60" stroke="#34d399" stroke-width="2.5" stroke-dasharray="6 6"/>
+          <circle cx="200" cy="60" r="5" fill="#5eead4">
+            <animate attributeName="cx" values="150;350" dur="1.8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="200" cy="60" r="8" fill="#5eead4" opacity="0.3">
+            <animate attributeName="cx" values="150;350" dur="1.8s" repeatCount="indefinite"/>
+          </circle>
+
+          <rect x="350" y="30" width="130" height="60" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+          <text x="415" y="58" font-size="11" fill="#ccfbf1" font-weight="bold" text-anchor="middle">TALLY PRIME</text>
+          <text x="415" y="73" font-size="8" fill="#34d399" text-anchor="middle">General Ledger</text>
+        </svg>
       </div>
 
       <div class="m-stat-grid">
@@ -283,11 +313,6 @@
           <div class="m-stat-lbl">Tally Books Intact</div>
         </div>
       </div>
-
-      <div class="m-card">
-        <h2 class="m-subtitle">Why Not Tally Alone?</h2>
-        <p class="m-body">Tally is built for accountants, not frontline sales clerks handling WhatsApp messages, QR payments, stock variants, or instant PDF quotes on mobile.</p>
-      </div>
     </section>
 
     <!-- Mobile Slide 2: Before - Tally WhatsApp Quote Problem -->
@@ -298,9 +323,30 @@
         <p class="m-body">Dr. Sharma messages on WhatsApp asking for a quick quote. In Tally, this requires creating a full customer ledger, entering stock items, saving a voucher, exporting PDF, and emailing or manually attaching in WhatsApp.</p>
       </div>
 
+      <!-- Animated SVG Bottleneck Diagram -->
+      <div class="m-svg-container">
+        <svg viewBox="0 0 500 130">
+          <rect x="20" y="25" width="100" height="80" rx="8" fill="#1e100a" stroke="#ef4444"/>
+          <text x="70" y="55" font-size="10" fill="#fca5a5" font-weight="bold" text-anchor="middle">💬 WhatsApp</text>
+          <text x="70" y="72" font-size="8" fill="#ef4444" text-anchor="middle">Dr. Sharma waiting</text>
+
+          <path d="M 120 65 L 240 65" stroke="#ef4444" stroke-dasharray="4 4" stroke-width="2"/>
+          <!-- Pulsing Red Delay Alert -->
+          <circle cx="180" cy="65" r="14" fill="#ef4444" opacity="0.2">
+            <animate attributeName="r" values="10;18;10" dur="1.2s" repeatCount="indefinite"/>
+          </circle>
+          <text x="180" y="69" font-size="9" fill="#fca5a5" font-weight="bold" text-anchor="middle">⏳ 30m Delay</text>
+
+          <rect x="240" y="25" width="240" height="80" rx="8" fill="#1e100a" stroke="#ef4444"/>
+          <text x="360" y="48" font-size="10" fill="#fca5a5" font-weight="bold" text-anchor="middle">TALLY PROFORMA BOTTLENECK</text>
+          <text x="360" y="66" font-size="8" fill="#f87171" text-anchor="middle">1. Create Ledger ➔ 2. Stock Voucher</text>
+          <text x="360" y="82" font-size="8" fill="#f87171" text-anchor="middle">3. Export PDF ➔ 4. Attach in Email/WA</text>
+        </svg>
+      </div>
+
       <div class="img-preview-wrap">
         <img src="assets/before-proforma-pdf.png" alt="Tally Proforma PDF" />
-        <div class="img-caption">Clerks struggle creating formal vouchers in Tally for simple WhatsApp queries</div>
+        <div class="img-caption">Formal Tally vouchers clutter ledgers for simple WhatsApp price checks</div>
       </div>
     </section>
 
@@ -308,13 +354,14 @@
     <section class="m-slide" data-slide="2">
       <div class="m-card hero">
         <span class="tag-pill cyan">The BillBuddy Way</span>
-        <h1 class="m-title">Instant WhatsApp Quote & Payment Link</h1>
+        <h1 class="m-title">Instant Customer Sales Quote & UPI Link</h1>
         <p class="m-body">Clerks generate clean PDF quotes in 10 seconds on their phone, attached with a direct UPI / PhonePe payment link sent directly into WhatsApp.</p>
       </div>
 
-      <div class="img-preview-wrap">
-        <img src="assets/after-whatsapp-quote-pay.png" alt="BillBuddy WhatsApp Quote" />
-        <div class="img-caption">Instant WhatsApp quote + PhonePe UPI payment link sent to customer</div>
+      <div class="img-scanner-box">
+        <div class="laser-beam" style="background: linear-gradient(90deg, transparent, #2dd4bf, #34d399, transparent); box-shadow: 0 0 14px #2dd4bf;"></div>
+        <img src="assets/after-whatsapp-quote-pay.png" alt="BillBuddy Customer Sales Quote + UPI Link" />
+        <div class="img-caption">SALES QUOTE: Customer quote + PhonePe UPI payment link sent into WhatsApp</div>
       </div>
     </section>
 
@@ -438,13 +485,27 @@
         <p class="m-body">Tally stores transactions as unformatted XML blobs (`CASH SALES, WALK IN`). BillBuddy structures customer names, dental item shades, and batch expiry dates into SQL rows.</p>
       </div>
 
-      <div class="m-card">
-        <h2 class="m-subtitle">Unlocks Advanced Capabilities:</h2>
-        <ul class="m-list" style="list-style:none;">
-          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#5eead4;font-weight:bold;">✓</span> Real-time inventory search by variant shade & batch.</li>
-          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#5eead4;font-weight:bold;">✓</span> Instant customer purchase history & reorder alerts.</li>
-          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#5eead4;font-weight:bold;">✓</span> WhatsApp API integration for automated receipts & tracking.</li>
-        </ul>
+      <!-- Animated Data Transformation SVG -->
+      <div class="m-svg-container">
+        <svg viewBox="0 0 500 120">
+          <!-- Unstructured XML blob -->
+          <rect x="15" y="20" width="160" height="80" rx="8" fill="#1e100a" stroke="#fb923c"/>
+          <text x="25" y="42" font-size="8" fill="#fb923c" font-family="JetBrains Mono">CASH SALES, WALK IN</text>
+          <text x="25" y="58" font-size="7" fill="#fed7aa" font-family="JetBrains Mono">&lt;ENVELOPE&gt;&lt;BODY&gt;...</text>
+          <text x="25" y="74" font-size="7" fill="#fed7aa" font-family="JetBrains Mono">Export CSV → Pivot</text>
+
+          <!-- Animated Beam Pipe -->
+          <path d="M 175 60 L 300 60" stroke="#a855f7" stroke-width="3" stroke-dasharray="6 6"/>
+          <circle cx="230" cy="60" r="6" fill="#c084fc">
+            <animate attributeName="cx" values="175;300" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- Structured SQL DB -->
+          <rect x="300" y="20" width="185" height="80" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+          <text x="312" y="42" font-size="8" fill="#5eead4" font-weight="bold">Dr. Mehta · Fuji IX · ₹2,400</text>
+          <text x="312" y="58" font-size="8" fill="#ccfbf1">Smile Care · ProTaper · ₹8,900</text>
+          <text x="312" y="74" font-size="8" fill="#ccfbf1">City Dental · K-files · ₹1,150</text>
+        </svg>
       </div>
     </section>
 
@@ -456,7 +517,8 @@
         <p class="m-body">Snap a photo of a doctor's handwritten note or copy a messy WhatsApp message. BillBuddy AI extracts items, matches catalog codes, and generates a formatted quote.</p>
       </div>
 
-      <div class="img-preview-wrap">
+      <div class="img-scanner-box">
+        <div class="laser-beam"></div>
         <img src="assets/handwritten-note-dr-sharma.png" alt="Handwritten Doctor Note AI OCR" />
         <div class="img-caption">AI extracts handwritten items & matches catalog stock codes instantly</div>
       </div>
@@ -470,9 +532,33 @@
         <p class="m-body">Convert thousands of flat, messy Tally item ledgers into structured product families with image galleries, shade variants, and HSN tax categories automatically.</p>
       </div>
 
-      <div class="img-preview-wrap">
-        <img src="assets/real-quote-TEMP-633519.jpg" alt="Rich Product Catalog AI" />
-        <div class="img-caption">AI organizes flat Tally items into clean product families with photos & shades</div>
+      <!-- Animated SVG Catalog Transformation -->
+      <div class="m-svg-container">
+        <svg viewBox="0 0 500 130">
+          <text x="20" y="25" font-size="9" fill="#94a3b8" font-weight="bold">MESSY TALLY LEDGERS:</text>
+          <rect x="20" y="35" width="170" height="75" rx="6" fill="#0f172a" stroke="#475569"/>
+          <text x="30" y="55" font-size="7" fill="#94a3b8">· Fuji_IX_GP_Shade_A2_Pkt</text>
+          <text x="30" y="70" font-size="7" fill="#94a3b8">· Fuji_IX_GP_Shade_A3_Pkt</text>
+          <text x="30" y="85" font-size="7" fill="#94a3b8">· Fuji_IX_GP_Yellow_Extra</text>
+
+          <path d="M 190 72 L 270 72" stroke="#a855f7" stroke-width="2.5" stroke-dasharray="4 4"/>
+          <text class="c5-sparkle" x="230" y="65" font-size="12" text-anchor="middle">✨ AI</text>
+
+          <g transform="translate(270, 35)">
+            <rect x="0" y="0" width="210" height="75" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+            <text x="12" y="22" font-size="10" fill="#ccfbf1" font-weight="bold">Fuji IX GP Capsules</text>
+            <text x="12" y="36" font-size="8" fill="#5eead4">GC Dental · Glass Ionomer</text>
+            
+            <rect x="12" y="45" width="30" height="18" rx="4" fill="#34d399"/>
+            <text x="27" y="57" font-size="7" fill="#041420" font-weight="bold" text-anchor="middle">A2</text>
+
+            <rect x="48" y="45" width="30" height="18" rx="4" fill="#34d399"/>
+            <text x="63" y="57" font-size="7" fill="#041420" font-weight="bold" text-anchor="middle">A3</text>
+
+            <rect x="84" y="45" width="30" height="18" rx="4" fill="#34d399"/>
+            <text x="99" y="57" font-size="7" fill="#041420" font-weight="bold" text-anchor="middle">B2</text>
+          </g>
+        </svg>
       </div>
     </section>
 
@@ -484,9 +570,41 @@
         <p class="m-body">Upload supplier purchase PDFs. AI extracts line items, batch numbers, and expiry dates, matching them against your Tally purchase ledgers with zero manual typing.</p>
       </div>
 
-      <div class="img-preview-wrap">
-        <img src="assets/real-invoice-send-1.jpg" alt="Purchase Invoice AI OCR" />
-        <div class="img-caption">AI extracts batch & expiry data from complex supplier invoices in &lt;3s</div>
+      <!-- Distinct Supplier Purchase Bill Container with Laser Scanner -->
+      <div class="img-scanner-box">
+        <div class="laser-beam" style="background: linear-gradient(90deg, transparent, #a855f7, #c084fc, transparent); box-shadow: 0 0 16px #a855f7;"></div>
+        
+        <!-- Custom Distinct Supplier Purchase Bill Card -->
+        <div style="padding: 1rem; background: #07111e; border-bottom: 1px solid rgba(255,255,255,0.1);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:0.5rem;">
+            <div>
+              <span style="font-size:0.6rem; color:#a855f7; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">SUPPLIER PURCHASE BILL</span>
+              <h3 style="font-size:1.05rem; color:#f8fafc; font-weight:700; margin-top:0.1rem;">Mani Dental Supplies Ltd.</h3>
+            </div>
+            <span style="font-size:0.65rem; font-family:'JetBrains Mono'; color:#a5b4fc; background:rgba(168,85,247,0.15); padding:0.2rem 0.5rem; border-radius:6px; border:1px solid rgba(168,85,247,0.3);">MANI-2026-9812</span>
+          </div>
+
+          <!-- Purchase Line Items with Batch & Expiry Tag Extracted -->
+          <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.75rem;">
+            <div style="background:rgba(15,28,44,0.9); border:1px solid rgba(168,85,247,0.4); border-radius:8px; padding:0.5rem; display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <strong style="color:#f4fafc; display:block;">Fuji IX GP Glass Ionomer</strong>
+                <span style="color:#c084fc; font-size:0.65rem; font-family:'JetBrains Mono';">Batch: B-90812 · Exp: 12/2028</span>
+              </div>
+              <span style="color:#5eead4; font-weight:700;">₹2,400</span>
+            </div>
+
+            <div style="background:rgba(15,28,44,0.9); border:1px solid rgba(168,85,247,0.4); border-radius:8px; padding:0.5rem; display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <strong style="color:#f4fafc; display:block;">ProTaper Gold Niti Files 25mm</strong>
+                <span style="color:#c084fc; font-size:0.65rem; font-family:'JetBrains Mono';">Batch: PT-4412 · Exp: 08/2027</span>
+              </div>
+              <span style="color:#5eead4; font-weight:700;">₹8,900</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="img-caption">PURCHASE BILL: AI extracts Supplier GSTIN, Batch & Expiry in &lt;3s</div>
       </div>
     </section>
 
