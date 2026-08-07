@@ -319,29 +319,52 @@
     <section class="m-slide" data-slide="1">
       <div class="m-card bad">
         <span class="tag-pill orange">The Old Way · Tally</span>
-        <h1 class="m-title">The Proforma Quote Bottleneck</h1>
-        <p class="m-body">Dr. Sharma messages on WhatsApp asking for a quick quote. In Tally, this requires creating a full customer ledger, entering stock items, saving a voucher, exporting PDF, and emailing or manually attaching in WhatsApp.</p>
+        <h1 class="m-title">The 4-Step Manual Quote Bottleneck</h1>
+        <p class="m-body">Dr. Sharma messages on WhatsApp asking for a quick price estimate. Tally requires a tedious 4-step manual workflow that slows down sales clerks.</p>
       </div>
 
-      <!-- Animated SVG Bottleneck Diagram -->
+      <!-- Animated SVG 4 Manual Steps Flow -->
       <div class="m-svg-container">
-        <svg viewBox="0 0 500 130">
-          <rect x="20" y="25" width="100" height="80" rx="8" fill="#1e100a" stroke="#ef4444"/>
-          <text x="70" y="55" font-size="10" fill="#fca5a5" font-weight="bold" text-anchor="middle">💬 WhatsApp</text>
-          <text x="70" y="72" font-size="8" fill="#ef4444" text-anchor="middle">Dr. Sharma waiting</text>
+        <svg viewBox="0 0 500 150">
+          <g transform="translate(10, 10)">
+            <rect x="0" y="0" width="105" height="52" rx="6" fill="#1e100a" stroke="#ef4444"/>
+            <text x="52" y="22" font-size="8" fill="#fca5a5" font-weight="bold" text-anchor="middle">1. Manual WA Check</text>
+            <text x="52" y="38" font-size="7" fill="#ef4444" text-anchor="middle">Read customer chat</text>
 
-          <path d="M 120 65 L 240 65" stroke="#ef4444" stroke-dasharray="4 4" stroke-width="2"/>
-          <!-- Pulsing Red Delay Alert -->
-          <circle cx="180" cy="65" r="14" fill="#ef4444" opacity="0.2">
-            <animate attributeName="r" values="10;18;10" dur="1.2s" repeatCount="indefinite"/>
-          </circle>
-          <text x="180" y="69" font-size="9" fill="#fca5a5" font-weight="bold" text-anchor="middle">⏳ 30m Delay</text>
+            <path d="M 105 26 L 125 26" stroke="#ef4444" stroke-dasharray="3 3"/>
 
-          <rect x="240" y="25" width="240" height="80" rx="8" fill="#1e100a" stroke="#ef4444"/>
-          <text x="360" y="48" font-size="10" fill="#fca5a5" font-weight="bold" text-anchor="middle">TALLY PROFORMA BOTTLENECK</text>
-          <text x="360" y="66" font-size="8" fill="#f87171" text-anchor="middle">1. Create Ledger ➔ 2. Stock Voucher</text>
-          <text x="360" y="82" font-size="8" fill="#f87171" text-anchor="middle">3. Export PDF ➔ 4. Attach in Email/WA</text>
+            <rect x="125" y="0" width="115" height="52" rx="6" fill="#1e100a" stroke="#ef4444"/>
+            <text x="182" y="22" font-size="8" fill="#fca5a5" font-weight="bold" text-anchor="middle">2. Tally Proforma</text>
+            <text x="182" y="38" font-size="7" fill="#ef4444" text-anchor="middle">Record voucher & rates</text>
+
+            <path d="M 240 26 L 260 26" stroke="#ef4444" stroke-dasharray="3 3"/>
+
+            <rect x="260" y="0" width="110" height="52" rx="6" fill="#1e100a" stroke="#ef4444"/>
+            <text x="315" y="22" font-size="8" fill="#fca5a5" font-weight="bold" text-anchor="middle">3. Print & Download</text>
+            <text x="315" y="38" font-size="7" fill="#ef4444" text-anchor="middle">Save PDF to desktop</text>
+
+            <path d="M 370 26 L 390 26" stroke="#ef4444" stroke-dasharray="3 3"/>
+
+            <rect x="390" y="0" width="95" height="52" rx="6" fill="#1e100a" stroke="#ef4444"/>
+            <text x="437" y="22" font-size="8" fill="#fca5a5" font-weight="bold" text-anchor="middle">4. Send in WA</text>
+            <text x="437" y="38" font-size="7" fill="#ef4444" text-anchor="middle">Locate & attach file</text>
+          </g>
+
+          <g transform="translate(10, 80)">
+            <rect x="20" y="5" width="445" height="40" rx="8" fill="#2d120a" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="242" y="29" font-size="9" fill="#fca5a5" font-weight="bold" text-anchor="middle">⚠️ High Friction: Manual WA Check ➔ Proforma ➔ Print PDF ➔ Download & Attach</text>
+          </g>
         </svg>
+      </div>
+
+      <div class="m-card">
+        <h2 class="m-subtitle">The 4 Manual Steps in Detail:</h2>
+        <ul class="m-list" style="list-style:none;">
+          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#ef4444;font-weight:bold;">1.</span> <strong>Manual WhatsApp Check:</strong> Read customer's query message on phone.</li>
+          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#ef4444;font-weight:bold;">2.</span> <strong>Tally Proforma Voucher:</strong> Open Tally, lookup ledger & enter line items.</li>
+          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#ef4444;font-weight:bold;">3.</span> <strong>Print & Download PDF:</strong> Export PDF voucher to local computer folder.</li>
+          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#ef4444;font-weight:bold;">4.</span> <strong>Attach & Send:</strong> Switch back to WhatsApp Web, find downloaded file & send.</li>
+        </ul>
       </div>
 
       <div class="img-preview-wrap">
@@ -608,12 +631,12 @@
       </div>
     </section>
 
-    <!-- Mobile Slide 10: Operational Impact - Animated Comparison Cards -->
+    <!-- Mobile Slide 10: Operational Impact -->
     <section class="m-slide" data-slide="9">
       <div class="m-card hero">
-        <span class="tag-pill cyan">Impact Summary</span>
-        <h1 class="m-title">7 Animated Visual Comparisons</h1>
-        <p class="m-body">How BillBuddy systematically eliminates friction, steps, and dead ends compared to Tally.</p>
+        <span class="tag-pill cyan">Operational Transformation</span>
+        <h1 class="m-title">Why BillBuddy Transforms Operations</h1>
+        <p class="m-body">How BillBuddy systematically solves 7 major Tally bottlenecks across sales, WhatsApp, catalog, and cloud operations.</p>
       </div>
 
       <!-- Animated Card 1: Onboarding -->
