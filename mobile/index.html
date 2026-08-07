@@ -67,8 +67,8 @@
     .m-card {
       background: rgba(10, 22, 34, 0.88);
       border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 16px; padding: 1rem;
-      margin-bottom: 0.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      border-radius: 16px; padding: 1.25rem;
+      margin-bottom: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
     .m-card.hero {
       border-color: rgba(45,212,191,0.4);
@@ -81,9 +81,9 @@
     }
 
     .tag-pill {
-      display: inline-block; font-size: 0.6rem; font-weight: 700;
+      display: inline-block; font-size: 0.68rem; font-weight: 700;
       letter-spacing: 0.08em; text-transform: uppercase;
-      padding: 0.15rem 0.5rem; border-radius: 999px; margin-bottom: 0.5rem;
+      padding: 0.2rem 0.65rem; border-radius: 999px; margin-bottom: 0.6rem;
     }
     .tag-pill.cyan { color: #5eead4; background: rgba(45,212,191,0.15); border: 1px solid rgba(45,212,191,0.3); }
     .tag-pill.orange { color: #fb923c; background: rgba(251,146,60,0.15); border: 1px solid rgba(251,146,60,0.3); }
@@ -91,14 +91,14 @@
 
     h1.m-title {
       font-family: "Newsreader", Georgia, serif;
-      font-size: 1.45rem; font-weight: 600; color: #f8fafc; line-height: 1.25; margin-bottom: 0.4rem;
+      font-size: 1.65rem; font-weight: 600; color: #f8fafc; line-height: 1.3; margin-bottom: 0.5rem;
     }
     h2.m-subtitle {
       font-family: "Newsreader", Georgia, serif;
-      font-size: 1.15rem; font-weight: 600; color: #e2e8f0; line-height: 1.3; margin-bottom: 0.4rem;
+      font-size: 1.3rem; font-weight: 600; color: #e2e8f0; line-height: 1.35; margin-bottom: 0.5rem;
     }
     p.m-body {
-      font-size: 0.82rem; line-height: 1.45; color: rgba(226,232,240,0.85); margin-bottom: 0.6rem;
+      font-size: 0.92rem; line-height: 1.55; color: rgba(226,232,240,0.9); margin-bottom: 0.75rem;
     }
 
     /* Image Preview Container with Scanner Overlay */
@@ -315,61 +315,67 @@
       </div>
     </section>
 
-    <!-- Mobile Slide 2: Before - Tally WhatsApp Quote Problem -->
+    <!-- Mobile Slide 2: Before & After - WhatsApp Sales Flow Redo -->
     <section class="m-slide" data-slide="1">
       <div class="m-card bad">
-        <span class="tag-pill orange">The Old Way · Tally</span>
-        <h1 class="m-title">The 4-Step Manual Quote Bottleneck</h1>
-        <p class="m-body">Dr. Sharma messages on WhatsApp asking for a quick price estimate. Tally requires a tedious 4-step manual workflow that slows down sales clerks.</p>
+        <span class="tag-pill orange">The Old Way · Tally Alone</span>
+        <h1 class="m-title">The Manual Quote Bottleneck</h1>
+        <p class="m-body">When a doctor asks for a price on WhatsApp, Tally requires 4 manual steps across 2 separate screens, creating clerk friction.</p>
       </div>
 
-      <!-- Animated SVG 4 Manual Steps Flow -->
-      <div class="m-svg-container">
-        <svg viewBox="0 0 500 150">
-          <g transform="translate(10, 10)">
-            <rect x="0" y="0" width="105" height="52" rx="6" fill="#1e100a" stroke="#ef4444"/>
-            <text x="52" y="22" font-size="8" fill="#fca5a5" font-weight="bold" text-anchor="middle">1. Manual WA Check</text>
-            <text x="52" y="38" font-size="7" fill="#ef4444" text-anchor="middle">Read customer chat</text>
-
-            <path d="M 105 26 L 125 26" stroke="#ef4444" stroke-dasharray="3 3"/>
-
-            <rect x="125" y="0" width="115" height="52" rx="6" fill="#1e100a" stroke="#ef4444"/>
-            <text x="182" y="22" font-size="8" fill="#fca5a5" font-weight="bold" text-anchor="middle">2. Tally Proforma</text>
-            <text x="182" y="38" font-size="7" fill="#ef4444" text-anchor="middle">Record voucher & rates</text>
-
-            <path d="M 240 26 L 260 26" stroke="#ef4444" stroke-dasharray="3 3"/>
-
-            <rect x="260" y="0" width="110" height="52" rx="6" fill="#1e100a" stroke="#ef4444"/>
-            <text x="315" y="22" font-size="8" fill="#fca5a5" font-weight="bold" text-anchor="middle">3. Print & Download</text>
-            <text x="315" y="38" font-size="7" fill="#ef4444" text-anchor="middle">Save PDF to desktop</text>
-
-            <path d="M 370 26 L 390 26" stroke="#ef4444" stroke-dasharray="3 3"/>
-
-            <rect x="390" y="0" width="95" height="52" rx="6" fill="#1e100a" stroke="#ef4444"/>
-            <text x="437" y="22" font-size="8" fill="#fca5a5" font-weight="bold" text-anchor="middle">4. Send in WA</text>
-            <text x="437" y="38" font-size="7" fill="#ef4444" text-anchor="middle">Locate & attach file</text>
+      <!-- Redesigned Clear 4-Step Diagram -->
+      <div class="m-svg-container" style="border-color: rgba(251,146,60,0.4); padding: 0.8rem 0.4rem;">
+        <svg viewBox="0 0 500 170">
+          <!-- Step 1: Read Chat -->
+          <g transform="translate(15, 10)">
+            <rect x="0" y="0" width="100" height="52" rx="8" fill="#1e100a" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="50" y="22" font-size="9" fill="#fca5a5" font-weight="bold" text-anchor="middle">1. Read WA 💬</text>
+            <text x="50" y="38" font-size="7.5" fill="#ef4444" text-anchor="middle">Customer query</text>
           </g>
 
-          <g transform="translate(10, 80)">
-            <rect x="20" y="5" width="445" height="40" rx="8" fill="#2d120a" stroke="#ef4444" stroke-width="1.5"/>
-            <text x="242" y="29" font-size="9" fill="#fca5a5" font-weight="bold" text-anchor="middle">⚠️ High Friction: Manual WA Check ➔ Proforma ➔ Print PDF ➔ Download & Attach</text>
+          <path d="M 115 36 L 135 36" stroke="#ef4444" stroke-dasharray="3 3" stroke-width="1.5"/>
+
+          <!-- Step 2: Open Tally -->
+          <g transform="translate(135, 10)">
+            <rect x="0" y="0" width="105" height="52" rx="8" fill="#1e100a" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="52" y="22" font-size="9" fill="#fca5a5" font-weight="bold" text-anchor="middle">2. Open Tally 💻</text>
+            <text x="52" y="38" font-size="7.5" fill="#ef4444" text-anchor="middle">Search stock & ledger</text>
           </g>
+
+          <path d="M 240 36 L 260 36" stroke="#ef4444" stroke-dasharray="3 3" stroke-width="1.5"/>
+
+          <!-- Step 3: Export PDF -->
+          <g transform="translate(260, 10)">
+            <rect x="0" y="0" width="105" height="52" rx="8" fill="#1e100a" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="52" y="22" font-size="9" fill="#fca5a5" font-weight="bold" text-anchor="middle">3. Export PDF 📄</text>
+            <text x="52" y="38" font-size="7.5" fill="#ef4444" text-anchor="middle">Save PDF to desktop</text>
+          </g>
+
+          <path d="M 365 36 L 385 36" stroke="#ef4444" stroke-dasharray="3 3" stroke-width="1.5"/>
+
+          <!-- Step 4: Attach WA -->
+          <g transform="translate(385, 10)">
+            <rect x="0" y="0" width="100" height="52" rx="8" fill="#1e100a" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="50" y="22" font-size="9" fill="#fca5a5" font-weight="bold" text-anchor="middle">4. Attach WA 📤</text>
+            <text x="50" y="38" font-size="7.5" fill="#ef4444" text-anchor="middle">Manual file send</text>
+          </g>
+
+          <!-- Warning Bar -->
+          <g transform="translate(15, 75)">
+            <rect x="0" y="0" width="470" height="38" rx="8" fill="#2d120a" stroke="#ef4444" stroke-width="1.5"/>
+            <text x="235" y="24" font-size="9.5" fill="#fca5a5" font-weight="bold" text-anchor="middle">⚠️ High Clerk Friction: Manual WA ➔ Tally ➔ Export PDF ➔ Attach WA</text>
+          </g>
+
+          <!-- Repeat Loop Indicator -->
+          <path d="M 435 125 C 435 155, 65 155, 65 125" fill="none" stroke="#ef4444" stroke-dasharray="4 4" stroke-width="1.5"/>
+          <text x="250" y="152" font-size="9" fill="#ef4444" font-weight="bold" text-anchor="middle">↺ Re-do entire process for any price or quantity change</text>
         </svg>
       </div>
 
-      <div class="m-card">
-        <h2 class="m-subtitle">The 4 Manual Steps in Detail:</h2>
-        <ul class="m-list" style="list-style:none;">
-          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#ef4444;font-weight:bold;">1.</span> <strong>Manual WhatsApp Check:</strong> Read customer's query message on phone.</li>
-          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#ef4444;font-weight:bold;">2.</span> <strong>Tally Proforma Voucher:</strong> Open Tally, lookup ledger & enter line items.</li>
-          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#ef4444;font-weight:bold;">3.</span> <strong>Print & Download PDF:</strong> Export PDF voucher to local computer folder.</li>
-          <li style="display:flex; gap:0.4rem; margin-bottom:0.4rem; font-size:0.8rem;"><span style="color:#ef4444;font-weight:bold;">4.</span> <strong>Attach & Send:</strong> Switch back to WhatsApp Web, find downloaded file & send.</li>
-        </ul>
-      </div>
-
-      <div class="img-preview-wrap">
-        <img src="assets/before-proforma-pdf.png" alt="Tally Proforma PDF" />
-        <div class="img-caption">Formal Tally vouchers clutter ledgers for simple WhatsApp price checks</div>
+      <div class="m-card hero">
+        <span class="tag-pill cyan">The BillBuddy Fix</span>
+        <h2 class="m-subtitle">1-Tap Quote + WhatsApp PDF + Auto-Post to Tally</h2>
+        <p class="m-body">BillBuddy collapses all 4 manual steps into 1 action on web/mobile. Select items, tap send, and let BillBuddy handle WhatsApp delivery and Tally posting automatically.</p>
       </div>
     </section>
 
