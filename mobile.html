@@ -196,8 +196,8 @@
     @keyframes dotPing { 0%, 100% { r: 3px; opacity: 1; } 50% { r: 5px; opacity: 0.6; } }
     .c4-query-flash { animation: queryBeam 2s ease-in-out infinite; }
     @keyframes queryBeam { 0% { stroke-dashoffset: 20; opacity: 0.3; } 50% { stroke-dashoffset: 0; opacity: 1; } 100% { stroke-dashoffset: -20; opacity: 0.3; } }
-    .c5-sparkle { animation: spinSparkle 3s linear infinite; transform-origin: center; }
-    @keyframes spinSparkle { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .c5-pulse { animation: pulseGlow 2.2s ease-in-out infinite; }
+    @keyframes pulseGlow { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; } }
     .c6-ocr-scan { animation: scanLine 2s ease-in-out infinite; }
     @keyframes scanLine { 0%, 100% { transform: translateY(0); opacity: 0.4; } 50% { transform: translateY(18px); opacity: 1; } }
     .c7-jam-dot { animation: jamTraffic 2.5s linear infinite; }
@@ -696,31 +696,49 @@
         <p class="m-body">Convert thousands of flat, messy Tally item ledgers into structured product families with image galleries, shade variants, and HSN tax categories automatically.</p>
       </div>
 
-      <!-- Animated SVG Catalog Transformation -->
-      <div class="m-svg-container">
-        <svg viewBox="0 0 500 140">
-          <text x="20" y="25" font-size="13" fill="#94a3b8" font-weight="bold">MESSY TALLY LEDGERS:</text>
-          <rect x="20" y="35" width="170" height="85" rx="6" fill="#0f172a" stroke="#475569"/>
-          <text x="30" y="58" font-size="11" fill="#94a3b8">· Fuji_IX_GP_Shade_A2_Pkt</text>
-          <text x="30" y="78" font-size="11" fill="#94a3b8">· Fuji_IX_GP_Shade_A3_Pkt</text>
-          <text x="30" y="98" font-size="11" fill="#94a3b8">· Fuji_IX_GP_Yellow_Extra</text>
+      <!-- Animated SVG Catalog Transformation (Top-to-Bottom Vertical Flow) -->
+      <div class="m-svg-container" style="padding: 0.8rem 0.6rem;">
+        <svg viewBox="0 0 460 250">
+          <!-- Top Section: Raw Tally Ledgers -->
+          <g transform="translate(10, 10)">
+            <rect x="0" y="0" width="440" height="85" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+            <text x="16" y="24" font-size="12" fill="#94a3b8" font-weight="bold" letter-spacing="0.04em">RAW TALLY LEDGERS (Flat Unstructured Items)</text>
+            <text x="16" y="44" font-size="11.5" fill="#cbd5e1">· Fuji_IX_GP_Shade_A2_Pkt_100s</text>
+            <text x="16" y="62" font-size="11.5" fill="#cbd5e1">· Fuji_IX_GP_Shade_A3_Pkt_100s</text>
+            <text x="240" y="44" font-size="11.5" fill="#cbd5e1">· Fuji_IX_GP_Yellow_Extra</text>
+            <text x="240" y="62" font-size="11.5" fill="#cbd5e1">· Fuji_IX_GP_Shade_B2_Box</text>
+          </g>
 
-          <path d="M 190 77.5 L 265 77.5" stroke="#a855f7" stroke-width="3" stroke-dasharray="4 4"/>
-          <text class="c5-sparkle" x="227.5" y="70" font-size="16" text-anchor="middle">✨ AI</text>
+          <!-- Middle Downward Transformation Pipeline -->
+          <path d="M 230 95 L 230 145" stroke="#a855f7" stroke-width="3" stroke-dasharray="5 5"/>
+          <circle cx="230" cy="120" r="5" fill="#c084fc">
+            <animate attributeName="cy" values="95;145" dur="1.5s" repeatCount="indefinite"/>
+          </circle>
+          
+          <g transform="translate(145, 108)">
+            <rect x="0" y="0" width="170" height="24" rx="12" fill="#1e1035" stroke="#a855f7" stroke-width="1.2"/>
+            <text x="85" y="16" font-size="11" fill="#c084fc" font-weight="bold" text-anchor="middle">✨ AI Catalog Engine</text>
+          </g>
 
-          <g transform="translate(265, 35)">
-            <rect x="0" y="0" width="215" height="85" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
-            <text x="14" y="26" font-size="14" fill="#ccfbf1" font-weight="bold">Fuji IX GP Capsules</text>
-            <text x="14" y="44" font-size="12" fill="#5eead4">GC Dental · Glass Ionomer</text>
-            
-            <rect x="14" y="52" width="38" height="22" rx="4" fill="#34d399"/>
-            <text x="33" y="68" font-size="11" fill="#041420" font-weight="bold" text-anchor="middle">A2</text>
+          <!-- Bottom Section: Organized Product Family -->
+          <g transform="translate(10, 145)">
+            <rect x="0" y="0" width="440" height="95" rx="8" fill="#064e3b" stroke="#34d399" stroke-width="2"/>
+            <text x="18" y="26" font-size="14" fill="#ccfbf1" font-weight="bold">Fuji IX GP Glass Ionomer Capsules</text>
+            <text x="18" y="45" font-size="12" fill="#5eead4">GC Dental · Structured Product Family (100 Pcs Box)</text>
 
-            <rect x="58" y="52" width="38" height="22" rx="4" fill="#34d399"/>
-            <text x="77" y="68" font-size="11" fill="#041420" font-weight="bold" text-anchor="middle">A3</text>
+            <rect x="18" y="55" width="44" height="25" rx="5" fill="#34d399"/>
+            <text x="40" y="72" font-size="12" fill="#041420" font-weight="bold" text-anchor="middle">A2</text>
 
-            <rect x="102" y="52" width="38" height="22" rx="4" fill="#34d399"/>
-            <text x="121" y="68" font-size="11" fill="#041420" font-weight="bold" text-anchor="middle">B2</text>
+            <rect x="70" y="55" width="44" height="25" rx="5" fill="#34d399"/>
+            <text x="92" y="72" font-size="12" fill="#041420" font-weight="bold" text-anchor="middle">A3</text>
+
+            <rect x="122" y="55" width="44" height="25" rx="5" fill="#34d399"/>
+            <text x="144" y="72" font-size="12" fill="#041420" font-weight="bold" text-anchor="middle">B2</text>
+
+            <rect x="174" y="55" width="60" height="25" rx="5" fill="#34d399"/>
+            <text x="204" y="72" font-size="11.5" fill="#041420" font-weight="bold" text-anchor="middle">Yellow</text>
+
+            <text x="420" y="72" font-size="14" fill="#34d399" font-weight="bold" text-anchor="end">✓ Ready</text>
           </g>
         </svg>
       </div>
@@ -929,7 +947,7 @@
               <text x="17" y="23" font-size="7" fill="#041420" text-anchor="middle">A2</text>
               <rect x="27" y="17" width="14" height="8" rx="1" fill="#34d399"/>
               <text x="34" y="23" font-size="7" fill="#041420" text-anchor="middle">A3</text>
-              <text class="c5-sparkle" x="68" y="16" font-size="11">✨</text>
+              <text x="68" y="16" font-size="9.5" fill="#34d399" font-weight="bold">✓ AI</text>
             </g>
           </svg>
         </div>
