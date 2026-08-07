@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>BillBuddy · Mobile Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,wght@0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; height: 100%; overflow: hidden;
+      background: #040911; color: #e2e8f0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased; touch-action: manipulation;
+    }
+
+    /* Top bar */
+    .mobile-header {
+      position: fixed; top: 0; left: 0; right: 0; height: 3rem;
+      z-index: 100; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1rem; background: rgba(7, 19, 31, 0.92);
+      backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-brand {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-weight: 700; font-size: 0.9rem; color: #f4fafc;
+    }
+    .mobile-brand img { height: 1.2rem; }
+    .view-toggle {
+      font-size: 0.72rem; font-weight: 600; color: #5eead4;
+      background: rgba(45,212,191,0.12); border: 1px solid rgba(45,212,191,0.3);
+      padding: 0.25rem 0.6rem; border-radius: 999px; text-decoration: none;
+      display: flex; align-items: center; gap: 0.3rem;
+    }
+
+    /* Swipe hint bar */
+    .swipe-hint-bar {
+      position: fixed; top: 3rem; left: 0; right: 0; height: 1.6rem;
+      z-index: 90; display: flex; align-items: center; justify-content: center;
+      background: rgba(14, 165, 233, 0.12); border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+      font-size: 0.65rem; font-weight: 600; color: #38bdf8; letter-spacing: 0.04em;
+    }
+
+    /* Slides container */
+    .mobile-deck {
+      position: relative; width: 100%; height: 100%;
+      padding-top: 4.6rem; padding-bottom: 3.8rem;
+    }
+
+    .m-slide {
+      position: absolute; inset: 4.6rem 0 3.8rem 0;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      transform: scale(0.96);
+      overflow-y: auto; overflow-x: hidden;
+      padding: 0.8rem 1rem 1.5rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .m-slide.active {
+      opacity: 1; visibility: visible; pointer-events: auto;
+      transform: scale(1);
+    }
+
+    /* Card styling */
+    .m-card {
+      background: rgba(10, 22, 34, 0.88);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px; padding: 1rem;
+      margin-bottom: 0.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .m-card.hero {
+      border-color: rgba(45,212,191,0.4);
+      background: linear-gradient(165deg, rgba(8,32,42,0.95), rgba(4,14,24,0.95));
+      box-shadow: 0 0 25px rgba(45,212,191,0.15);
+    }
+    .m-card.bad {
+      border-color: rgba(251,146,60,0.4);
+      background: linear-gradient(165deg, rgba(32,18,10,0.95), rgba(16,8,4,0.95));
+    }
+
+    .tag-pill {
+      display: inline-block; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.15rem 0.5rem; border-radius: 999px; margin-bottom: 0.5rem;
+    }
+    .tag-pill.cyan { color: #5eead4; background: rgba(45,212,191,0.15); border: 1px solid rgba(45,212,191,0.3); }
+    .tag-pill.orange { color: #fb923c; background: rgba(251,146,60,0.15); border: 1px solid rgba(251,146,60,0.3); }
+    .tag-pill.purple { color: #c084fc; background: rgba(192,132,252,0.15); border: 1px solid rgba(192,132,252,0.3); }
+
+    h1.m-title {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 1.45rem; font-weight: 600; color: #f8fafc; line-height: 1.25; margin-bottom: 0.4rem;
+    }
+    h2.m-subtitle {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 1.15rem; font-weight: 600; color: #e2e8f0; line-height: 1.3; margin-bottom: 0.4rem;
+    }
+    p.m-body {
+      font-size: 0.82rem; line-height: 1.45; color: rgba(226,232,240,0.85); margin-bottom: 0.6rem;
+    }
+
+    /* Image Preview Cards */
+    .img-preview-wrap {
+      width: 100%; border-radius: 12px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.14); margin: 0.6rem 0;
+      background: #020610; box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    .img-preview-wrap img {
+      width: 100%; height: auto; display: block; object-fit: cover;
+    }
+    .img-caption {
+      font-size: 0.68rem; color: rgba(226,232,240,0.65); text-align: center;
+      padding: 0.4rem 0.6rem; background: rgba(5,15,25,0.9); border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* Mobile Stats */
+    .m-stat-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.8rem 0;
+    }
+    .m-stat-card {
+      background: rgba(15,28,42,0.8); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; padding: 0.65rem; text-align: center;
+    }
+    .m-stat-num {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 1.4rem; font-weight: 700; color: #5eead4;
+    }
+    .m-stat-lbl {
+      font-size: 0.65rem; color: rgba(226,232,240,0.7); margin-top: 0.1rem;
+    }
+
+    /* List items */
+    .m-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin: 0.6rem 0; }
+    .m-list li {
+      display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; line-height: 1.4;
+    }
+    .m-list li .bullet {
+      width: 1.1rem; height: 1.1rem; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; font-weight: 700; margin-top: 0.1rem;
+    }
+    .m-list li .bullet.bad { background: rgba(251,146,60,0.2); color: #fb923c; border: 1px solid rgba(251,146,60,0.4); }
+    .m-list li .bullet.good { background: rgba(45,212,191,0.2); color: #5eead4; border: 1px solid rgba(45,212,191,0.4); }
+
+    /* Bottom Nav Bar */
+    .mobile-footer-nav {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 3.8rem;
+      z-index: 100; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.2rem; background: rgba(7, 19, 31, 0.95);
+      backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-btn {
+      min-width: 2.8rem; height: 2.4rem; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.06);
+      color: #f4fafc; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    .nav-btn:active { background: rgba(45,212,191,0.25); border-color: #5eead4; }
+    .nav-btn:disabled { opacity: 0.3; pointer-events: none; }
+
+    .slide-dots-mobile {
+      display: flex; gap: 0.35rem; align-items: center; max-width: 55vw; overflow-x: auto;
+    }
+    .dot-m {
+      width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25);
+      flex-shrink: 0; transition: all 0.25s ease;
+    }
+    .dot-m.active { width: 14px; border-radius: 999px; background: #5eead4; box-shadow: 0 0 8px rgba(45,212,191,0.7); }
+
+    .slide-count-txt {
+      font-size: 0.7rem; font-weight: 700; color: rgba(226,232,240,0.7); letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header class="mobile-header">
+    <div class="mobile-brand">
+      <img src="assets/billbuddy-logo.png" alt="BillBuddy" />
+      <span>BillBuddy</span>
+    </div>
+    <a href="deck.html" class="view-toggle">
+      <span>Desktop View 💻</span>
+    </a>
+  </header>
+
+  <!-- Swipe Hint Bar -->
+  <div class="swipe-hint-bar" id="swipeHint">
+    👈 Swipe left to start exploring · 10 Mobile Cards
+  </div>
+
+  <!-- Mobile Deck Slides -->
+  <main class="mobile-deck" id="mobileDeck">
+
+    <!-- Mobile Slide 1: Intro -->
+    <section class="m-slide active" data-slide="0">
+      <div class="m-card hero">
+        <span class="tag-pill cyan">System Overview</span>
+        <h1 class="m-title">BillBuddy + Tally Prime</h1>
+        <p class="m-body">Why a specialized frontend operational web app gives clerks 10× speed while preserving Tally as the immutable general ledger.</p>
+      </div>
+
+      <div class="m-stat-grid">
+        <div class="m-stat-card">
+          <div class="m-stat-num">1-Tap</div>
+          <div class="m-stat-lbl">WhatsApp Quote & Pay</div>
+        </div>
+        <div class="m-stat-card">
+          <div class="m-stat-num">&lt;3s</div>
+          <div class="m-stat-lbl">AI Purchase OCR</div>
+        </div>
+        <div class="m-stat-card">
+          <div class="m-stat-num">0%</div>
+          <div class="m-stat-lbl">Clerk Friction</div>
+        </div>
+        <div class="m-stat-card">
+          <div class="m-stat-num">100%</div>
+          <div class="m-stat-lbl">Tally Books Intact</div>
+        </div>
+      </div>
+
+      <div class="m-card">
+        <h2 class="m-subtitle">Why Not Tally Alone?</h2>
+        <p class="m-body">Tally is built for accountants, not frontline sales clerks handling WhatsApp messages, QR payments, stock variants, or instant PDF quotes on mobile.</p>
+      </div>
+    </section>
+
+    <!-- Mobile Slide 2: Before - Tally WhatsApp Quote Problem -->
+    <section class="m-slide" data-slide="1">
+      <div class="m-card bad">
+        <span class="tag-pill orange">The Old Way · Tally</span>
+        <h1 class="m-title">The Proforma Quote Bottleneck</h1>
+        <p class="m-body">Dr. Sharma messages on WhatsApp asking for a quick quote. In Tally, this requires creating a full customer ledger, entering stock items, saving a voucher, exporting PDF, and emailing or manually attaching in WhatsApp.</p>
+      </div>
+
+      <div class="img-preview-wrap">
+        <img src="assets/before-proforma-pdf.png" alt="Tally Proforma PDF" />
+        <div class="img-caption">Clerks struggle creating formal vouchers in Tally for simple WhatsApp queries</div>
+      </div>
+
+      <div class="m-card">
+        <h2 class="m-subtitle">Consequences of Tally Friction:</h2>
+        <ul class="m-list">
+          <li><span class="bullet bad">✕</span><span>Clerks write quotes on loose paper notes that get lost.</span></li>
+          <li><span class="bullet bad">✕</span><span>Customers wait 15–30 mins for a simple price estimate.</span></li>
+          <li><span class="bullet bad">✕</span><span>Prices & GST calculations vary between sales staff.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Mobile Slide 3: After - BillBuddy WhatsApp Quote & Pay -->
+    <section class="m-slide" data-slide="2">
+      <div class="m-card hero">
+        <span class="tag-pill cyan">The BillBuddy Way</span>
+        <h1 class="m-title">Instant WhatsApp Quote & Payment Link</h1>
+        <p class="m-body">Clerks generate clean PDF quotes in 10 seconds on their phone, attached with a direct UPI / PhonePe payment link sent directly into WhatsApp.</p>
+      </div>
+
+      <div class="img-preview-wrap">
+        <img src="assets/after-whatsapp-quote-pay.png" alt="BillBuddy WhatsApp Quote" />
+        <div class="img-caption">Instant WhatsApp quote + PhonePe UPI payment link sent to customer</div>
+      </div>
+
+      <div class="m-card">
+        <h2 class="m-subtitle">Key Improvements:</h2>
+        <ul class="m-list">
+          <li><span class="bullet good">✓</span><span>Instant quote created without cluttering Tally ledgers.</span></li>
+          <li><span class="bullet good">✓</span><span>Customer pays via UPI link; payment updates automatically.</span></li>
+          <li><span class="bullet good">✓</span><span>Once approved, bill pushes into Tally as a clean Sales Voucher.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Mobile Slide 4: Interactive Architecture -->
+    <section class="m-slide" data-slide="3">
+      <div class="m-card hero">
+        <span class="tag-pill cyan">Cloud Architecture</span>
+        <h1 class="m-title">How BillBuddy & Tally Work Together</h1>
+        <p class="m-body">BillBuddy sits in the middle — managing WhatsApp, PhonePe payments, and sales clerks while automatically syncing with Tally behind the scenes.</p>
+      </div>
+
+      <div class="img-preview-wrap">
+        <img src="assets/billbuddy-laptop-ui.png" alt="BillBuddy Operational Hub" />
+        <div class="img-caption">BillBuddy Web & Mobile Hub — Tally stays online or offline without interrupting sales</div>
+      </div>
+
+      <div class="m-card">
+        <h2 class="m-subtitle">Resilient Offline Queueing</h2>
+        <p class="m-body">If the Tally computer goes offline or crashes, BillBuddy continues taking orders without interruption. All sales queue locally and push to Tally automatically when reconnected.</p>
+      </div>
+    </section>
+
+    <!-- Mobile Slide 5: Sales Voucher Entry Comparison -->
+    <section class="m-slide" data-slide="4">
+      <div class="m-card bad">
+        <span class="tag-pill orange">Tally Entry · 3 Steps</span>
+        <h2 class="m-subtitle">Clerk creates Customer ➔ Sales Voucher ➔ Receipt Voucher</h2>
+        <p class="m-body">Requires multi-screen navigation, selecting ledgers, entering GST numbers, and recording receipt entry manually.</p>
+      </div>
+
+      <div class="m-card hero">
+        <span class="tag-pill cyan">BillBuddy Entry · 1 Step</span>
+        <h2 class="m-subtitle">1-Tap "New Sale" ➔ Customer + Items + Payment</h2>
+        <p class="m-body">Clerk completes order in seconds. BillBuddy auto-posts the Customer Ledger, Sales Voucher, and Receipt Voucher into Tally in 1 unified API call.</p>
+      </div>
+    </section>
+
+    <!-- Mobile Slide 6: Structured Data Layer -->
+    <section class="m-slide" data-slide="5">
+      <div class="m-card hero">
+        <span class="tag-pill purple">Structured Data Layer</span>
+        <h1 class="m-title">From XML Exports to Query-Ready Database</h1>
+        <p class="m-body">Tally stores transactions as unformatted XML blobs (`CASH SALES, WALK IN`). BillBuddy structures customer names, dental item shades, and batch expiry dates into SQL rows.</p>
+      </div>
+
+      <div class="m-card">
+        <h2 class="m-subtitle">Unlocks Advanced Capabilities:</h2>
+        <ul class="m-list">
+          <li><span class="bullet good">✓</span><span>Real-time inventory search by variant shade & batch.</span></li>
+          <li><span class="bullet good">✓</span><span>Instant customer purchase history & reorder alerts.</span></li>
+          <li><span class="bullet good">✓</span><span>WhatsApp API integration for automated receipts & tracking.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Mobile Slide 7: AI Automation 1 - WhatsApp Quote -->
+    <section class="m-slide" data-slide="6">
+      <div class="m-card hero">
+        <span class="tag-pill purple">AI Automation 01</span>
+        <h1 class="m-title">Handwritten Note to Clean Quote</h1>
+        <p class="m-body">Snap a photo of a doctor's handwritten note or copy a messy WhatsApp message. BillBuddy AI extracts items, matches catalog codes, and generates a formatted quote.</p>
+      </div>
+
+      <div class="img-preview-wrap">
+        <img src="assets/handwritten-note-dr-sharma.png" alt="Handwritten Doctor Note AI OCR" />
+        <div class="img-caption">AI extracts handwritten items & matches catalog stock codes instantly</div>
+      </div>
+    </section>
+
+    <!-- Mobile Slide 8: AI Automation 2 - Catalog Builder -->
+    <section class="m-slide" data-slide="7">
+      <div class="m-card hero">
+        <span class="tag-pill purple">AI Automation 02</span>
+        <h1 class="m-title">Raw Ledgers to Rich Variant Catalog</h1>
+        <p class="m-body">Convert thousands of flat, messy Tally item ledgers into structured product families with image galleries, shade variants, and HSN tax categories automatically.</p>
+      </div>
+
+      <div class="img-preview-wrap">
+        <img src="assets/real-quote-TEMP-633519.jpg" alt="Rich Product Catalog AI" />
+        <div class="img-caption">AI organizes flat Tally items into clean product families with photos & shades</div>
+      </div>
+    </section>
+
+    <!-- Mobile Slide 9: AI Automation 3 - Purchase OCR -->
+    <section class="m-slide" data-slide="8">
+      <div class="m-card hero">
+        <span class="tag-pill purple">AI Automation 03</span>
+        <h1 class="m-title">Supplier Invoice OCR & Expiry Extraction</h1>
+        <p class="m-body">Upload supplier purchase PDFs. AI extracts line items, batch numbers, and expiry dates, matching them against your Tally purchase ledgers with zero manual typing.</p>
+      </div>
+
+      <div class="img-preview-wrap">
+        <img src="assets/real-invoice-send-1.jpg" alt="Purchase Invoice AI OCR" />
+        <div class="img-caption">AI extracts batch & expiry data from complex supplier invoices in &lt;3s</div>
+      </div>
+    </section>
+
+    <!-- Mobile Slide 10: Operational Impact -->
+    <section class="m-slide" data-slide="9">
+      <div class="m-card hero">
+        <span class="tag-pill cyan">Impact Summary</span>
+        <h1 class="m-title">7 Core Bottlenecks Solved</h1>
+        <p class="m-body">How BillBuddy transforms daily operations without disrupting your existing Tally accounting setup.</p>
+      </div>
+
+      <div class="m-card">
+        <ul class="m-list">
+          <li><span class="bullet good">1</span><span><strong>Staff Onboarding:</strong> Clerks learn BillBuddy web app in 15 mins vs 2 weeks in Tally.</span></li>
+          <li><span class="bullet good">2</span><span><strong>1-Step Counter Bills:</strong> Customer, sale, and payment recorded in 1 click.</span></li>
+          <li><span class="bullet good">3</span><span><strong>WhatsApp & Payments:</strong> Automated PDF quotes & UPI payment collection links.</span></li>
+          <li><span class="bullet good">4</span><span><strong>Analytics:</strong> Query-ready SQL database for real-time sales & inventory reports.</span></li>
+          <li><span class="bullet good">5</span><span><strong>AI Catalog:</strong> Automatic grouping of item variants, shades, and categories.</span></li>
+          <li><span class="bullet good">6</span><span><strong>AI Purchase Entry:</strong> Supplier PDF OCR + automatic batch & expiry extraction.</span></li>
+          <li><span class="bullet good">7</span><span><strong>Cloud Integration:</strong> Real Postgres cloud database with REST APIs vs laggy RDP feeds.</span></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Nav -->
+  <footer class="mobile-footer-nav">
+    <button class="nav-btn" id="mPrevBtn" aria-label="Previous card">‹</button>
+    <div class="slide-dots-mobile" id="mDots"></div>
+    <span class="slide-count-txt" id="mCount">1 / 10</span>
+    <button class="nav-btn" id="mNextBtn" aria-label="Next card">›</button>
+  </footer>
+
+  <script>
+    (function() {
+      const slides = Array.from(document.querySelectorAll('.m-slide'));
+      const prevBtn = document.getElementById('mPrevBtn');
+      const nextBtn = document.getElementById('mNextBtn');
+      const countTxt = document.getElementById('mCount');
+      const dotsContainer = document.getElementById('mDots');
+      const swipeHint = document.getElementById('swipeHint');
+
+      let current = 0;
+
+      // Build dots
+      slides.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot-m' + (idx === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(idx));
+        dotsContainer.appendChild(dot);
+      });
+
+      function updateNav() {
+        slides.forEach((s, idx) => {
+          s.classList.toggle('active', idx === current);
+        });
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current === slides.length - 1;
+        countTxt.textContent = (current + 1) + ' / ' + slides.length;
+
+        Array.from(dotsContainer.children).forEach((d, idx) => {
+          d.classList.toggle('active', idx === current);
+        });
+
+        if (current > 0 && swipeHint) {
+          swipeHint.textContent = '👈 Swipe left / right to navigate · Card ' + (current + 1) + ' of 10';
+        }
+      }
+
+      function goTo(idx) {
+        current = Math.max(0, Math.min(slides.length - 1, idx));
+        updateNav();
+      }
+
+      prevBtn.addEventListener('click', () => goTo(current - 1));
+      nextBtn.addEventListener('click', () => goTo(current + 1));
+
+      // Touch & Swipe logic
+      let startX = 0, startY = 0;
+      window.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          startX = e.touches[0].clientX;
+          startY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      window.addEventListener('touchend', (e) => {
+        if (!e.changedTouches || e.changedTouches.length !== 1) return;
+        const endX = e.changedTouches[0].clientX;
+        const endY = e.changedTouches[0].clientY;
+        const dx = endX - startX;
+        const dy = endY - startY;
+
+        // If horizontal swipe is greater than vertical & > 40px
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+          if (dx < 0 && current < slides.length - 1) goTo(current + 1);
+          else if (dx > 0 && current > 0) goTo(current - 1);
+        }
+      }, { passive: true });
+
+      // Keyboard arrow navigation
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'Space') goTo(current + 1);
+        else if (e.key === 'ArrowLeft') goTo(current - 1);
+      });
+
+      updateNav();
+    })();
+  </script>
+</body>
+</html>
