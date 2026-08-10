@@ -1,8 +1,8 @@
 # Hi there, I'm Avinash 👋
 
-### 🧠 AI Research Engineer & Systems Architect
+### 📊 Senior Data Analytics & AI Systems Engineer
 
-Passionate software engineer specializing in **Computer Vision OCR**, **Document Intelligence**, **Real-Time Data Analytics Pipelines**, and **Legacy ERP Automation**. I build high-throughput systems that combine modern cloud architecture with state-of-the-art AI vision and NLP engines to solve complex operational bottlenecks.
+Specializing in **real-time SQL analytics pipelines**, **machine learning & computer vision OCR**, **automated data quality extraction**, and **enterprise intelligence architectures** converting unstructured legacy ERP data into actionable executive insights.
 
 ---
 
