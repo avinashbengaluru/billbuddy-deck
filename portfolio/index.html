@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avinash | AI & Full-Stack Systems Engineer Portfolio</title>
+  <meta name="description" content="Portfolio of Avinash Bengaluru — AI Document Intelligence, ERP Automation Systems, and Full-Stack Engineering.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #050b14;
+      --card-bg: rgba(13, 25, 41, 0.75);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --cyan: #2dd4bf;
+      --cyan-bright: #5eead4;
+      --purple: #a855f7;
+      --purple-bright: #c084fc;
+      --orange: #fb923c;
+      --text: #f8fafc;
+      --subtext: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(45, 212, 191, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 65%, rgba(168, 85, 247, 0.08) 0%, transparent 45%);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.2rem;
+    }
+
+    /* Header / Hero Section */
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      position: relative;
+    }
+
+    .avatar-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(45, 212, 191, 0.12);
+      border: 1px solid rgba(45, 212, 191, 0.35);
+      color: var(--cyan-bright);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--cyan-bright);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 0 auto 2rem;
+      color: var(--subtext);
+      font-size: 1.05rem;
+    }
+
+    /* Action Links Header */
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0d9488, #2dd4bf);
+      color: #041420;
+      box-shadow: 0 4px 20px rgba(45, 212, 191, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(45, 212, 191, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(30, 41, 59, 0.8);
+      color: #f8fafc;
+      border: 1px solid var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: rgba(51, 65, 85, 0.9);
+      transform: translateY(-2px);
+    }
+
+    /* Section Styling */
+    .section-title {
+      font-size: 1.7rem;
+      font-weight: 800;
+      margin: 3.5rem 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .section-title span.icon {
+      font-size: 1.5rem;
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Glass Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      border-color: rgba(45, 212, 191, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .card.purple-accent:hover {
+      border-color: rgba(168, 85, 247, 0.4);
+    }
+
+    .card-tag {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.8rem;
+    }
+    .tag-cyan { background: rgba(45, 212, 191, 0.15); color: var(--cyan-bright); border: 1px solid rgba(45, 212, 191, 0.3); }
+    .tag-purple { background: rgba(168, 85, 247, 0.15); color: var(--purple-bright); border: 1px solid rgba(168, 85, 247, 0.3); }
+    .tag-orange { background: rgba(251, 146, 60, 0.15); color: var(--orange); border: 1px solid rgba(251, 146, 60, 0.3); }
+
+    .card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      color: var(--subtext);
+      font-size: 0.92rem;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Key Metrics Badge Row */
+    .metric-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .metric-badge {
+      background: rgba(15, 28, 44, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--cyan-bright);
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    /* Embedded Live Iframe Box */
+    .demo-embed-box {
+      width: 100%;
+      height: 480px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+      background: #020610;
+      margin-top: 1rem;
+      position: relative;
+    }
+
+    .demo-embed-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Tech Stack Matrix Table */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .skill-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 1.2rem;
+    }
+    .skill-card h4 {
+      color: var(--cyan-bright);
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .skill-card ul {
+      list-style: none;
+      font-size: 0.88rem;
+      color: var(--subtext);
+    }
+    .skill-card ul li {
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .skill-card ul li::before {
+      content: "▹";
+      color: var(--purple-bright);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 1rem;
+      color: var(--subtext);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 4rem;
+    }
+
+    footer a {
+      color: var(--cyan-bright);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Hero Header -->
+    <header class="hero">
+      <div class="avatar-badge">⚡ Full-Stack & AI Systems Engineer</div>
+      <h1>Avinash Bengaluru</h1>
+      <h2>AI Document Intelligence · Enterprise ERP Systems · High-Speed Operational UIs</h2>
+      <p>Building high-throughput operational software combining computer vision OCR engines, real-time database projections, and zero-friction ERP integrations.</p>
+      
+      <div class="hero-actions">
+        <a href="https://avinashbengaluru.github.io/billbuddy-deck/mobile.html" target="_blank" class="btn btn-primary">
+          📱 Launch Live Interactive Demo
+        </a>
+        <a href="https://github.com/avinashbengaluru/billbuddy-deck" target="_blank" class="btn btn-secondary">
+          💻 View GitHub Code
+        </a>
+      </div>
+    </header>
+
+    <!-- Featured Project: BillBuddy Platform -->
+    <section>
+      <h2 class="section-title"><span class="icon">🌟</span> Featured Project: BillBuddy Operational ERP Platform</h2>
+      
+      <div class="card">
+        <span class="card-tag tag-cyan">Enterprise ERP Operational Frontend</span>
+        <h3>BillBuddy + Tally Prime Integration</h3>
+        <p>A specialized frontend operational web platform designed to eliminate clerk friction in multi-item distribution while preserving Tally Prime as the immutable general ledger.</p>
+        
+        <div class="metric-badges">
+          <span class="metric-badge">⏱️ 10s Quotations</span>
+          <span class="metric-badge">💰 Direct UPI Cashflow</span>
+          <span class="metric-badge">🔄 0% Re-Typing Sync</span>
+          <span class="metric-badge">⚡ ~30s Purchase OCR</span>
+        </div>
+
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; margin-bottom: 1rem;">
+          <a href="https://avinashbengaluru.github.io/billbuddy-deck/mobile.html" target="_blank" class="btn btn-primary" style="font-size:0.85rem; padding:0.5rem 1rem;">Open Fullscreen Deck ↗</a>
+          <a href="https://github.com/avinashbengaluru/billbuddy-deck" target="_blank" class="btn btn-secondary" style="font-size:0.85rem; padding:0.5rem 1rem;">GitHub Repository ↗</a>
+        </div>
+
+        <!-- Embedded Live Demo Frame -->
+        <div class="demo-embed-box">
+          <iframe src="https://avinashbengaluru.github.io/billbuddy-deck/mobile.html" title="BillBuddy Live Presentation Deck"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Research Section -->
+    <section>
+      <h2 class="section-title"><span class="icon">🧠</span> AI Research & Document Intelligence Engine</h2>
+      
+      <div class="grid">
+        <!-- AI Card 1 -->
+        <div class="card purple-accent">
+          <span class="card-tag tag-purple">Computer Vision OCR</span>
+          <h3>Supplier Purchase PDF OCR (~30s)</h3>
+          <p>Automated OCR engine extracting supplier GSTINs, 50+ line items, batch numbers, and expiry dates directly from raw PDF invoices into Tally purchase ledgers with zero manual typing.</p>
+          <div class="metric-badges">
+            <span class="metric-badge">OpenCV / Vision</span>
+            <span class="metric-badge">Batch & Expiry Extraction</span>
+          </div>
+        </div>
+
+        <!-- AI Card 2 -->
+        <div class="card purple-accent">
+          <span class="card-tag tag-purple">Handwritten Vision OCR</span>
+          <h3>Prescription & Chat Note OCR</h3>
+          <p>AI document recognition converting handwritten doctor notes and unstructured WhatsApp chat queries into structured catalog items ready for instant quotation.</p>
+          <div class="metric-badges">
+            <span class="metric-badge">Handwritten Text Recognition</span>
+            <span class="metric-badge">Multi-Format Input</span>
+          </div>
+        </div>
+
+        <!-- AI Card 3 -->
+        <div class="card purple-accent">
+          <span class="card-tag tag-purple">NLP & Clustering</span>
+          <h3>AI Catalog Variant Normalization</h3>
+          <p>Clustering engine transforming thousands of flat, unformatted Tally item ledgers (e.g. <code>Fuji_IX_GP_Shade_A2</code>) into clean product families with image galleries and shade tags (<code>A2</code>, <code>A3</code>, <code>B2</code>).</p>
+          <div class="metric-badges">
+            <span class="metric-badge">NLP Text Normalization</span>
+            <span class="metric-badge">Variant Clustering</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Enterprise Architecture Section -->
+    <section>
+      <h2 class="section-title"><span class="icon">🛠️</span> Enterprise Architecture & Full-Stack Systems</h2>
+      
+      <div class="grid">
+        <div class="card">
+          <span class="card-tag tag-cyan">Cloud Infrastructure</span>
+          <h3>Resilient Offline Queueing</h3>
+          <p>Postgres SQL & local storage transaction buffering ensuring clerks continue taking orders uninterrupted even when Tally servers go offline or experience RDP video lag.</p>
+        </div>
+
+        <div class="card">
+          <span class="card-tag tag-purple">Full-Stack & Hardware</span>
+          <h3>Next.js + Supabase + Android Printing</h3>
+          <p>Event-driven Supabase Edge Functions and Firestore projections coupled with native Android Bluetooth protocols (BluPrints <code>BT_CONNECT</code>/<code>BT_SCAN</code>) for mobile receipt printing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Matrix -->
+    <section>
+      <h2 class="section-title"><span class="icon">💻</span> Technical Skills Matrix</h2>
+      
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h4>Languages</h4>
+          <ul>
+            <li>Python</li>
+            <li>JavaScript (ES6+)</li>
+            <li>TypeScript</li>
+            <li>SQL</li>
+            <li>HTML5 / CSS3</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>Frontend & Mobile</h4>
+          <ul>
+            <li>React / Next.js</li>
+            <li>Responsive SVG Animations</li>
+            <li>CSS Keyframes & Glassmorphism</li>
+            <li>PWA Mobile UIs</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>Backend & Cloud</h4>
+          <ul>
+            <li>Node.js / Express</li>
+            <li>PostgreSQL</li>
+            <li>Supabase (Edge Functions)</li>
+            <li>Firestore</li>
+          </ul>
+        </div>
+        <div class="skill-card">
+          <h4>AI & Integrations</h4>
+          <ul>
+            <li>Computer Vision OCR</li>
+            <li>Document Intelligence</li>
+            <li>Tally Prime REST/XML API</li>
+            <li>WhatsApp API & PhonePe UPI</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>Designed & Built by <strong>Avinash Bengaluru</strong> · Hosted on <a href="https://github.com/avinashbengaluru/billbuddy-deck" target="_blank">GitHub Pages</a></p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
