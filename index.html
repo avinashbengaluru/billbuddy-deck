@@ -161,6 +161,27 @@
       margin-bottom: 1.2rem;
     }
 
+    /* Process Screenshot Embeds */
+    .process-screenshot {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      margin-top: 1rem;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      display: block;
+    }
+    .process-screenshot:hover {
+      transform: scale(1.015);
+      border-color: rgba(45, 212, 191, 0.5);
+    }
+    .screenshot-caption {
+      font-size: 0.82rem;
+      color: var(--cyan-bright);
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+
     /* Key Metrics Badge Row */
     .metric-badges {
       display: flex;
@@ -277,10 +298,14 @@
           <span class="card-tag tag-purple">Handwritten Vision OCR</span>
           <h3>Prescription & Multi-Format Note OCR</h3>
           <p>Engineered document recognition models that convert handwritten doctor notes and multi-channel customer queries (Phone/Chat/Email) into structured catalog item orders.</p>
-          <div class="metric-badges">
+          <div class="metric-badges" style="margin-bottom:0.8rem;">
             <span class="metric-badge">Handwritten OCR</span>
             <span class="metric-badge">Multi-Channel Ingestion</span>
           </div>
+
+          <!-- Real System Screenshot: Handwritten OCR -->
+          <img src="./assets/screenshots/handwritten_ocr.jpg" alt="Handwritten Doctor Note OCR Modal" class="process-screenshot">
+          <div class="screenshot-caption">📷 Live System: AI extracting 9 line items from handwritten doctor note into structured order payload.</div>
         </div>
 
         <!-- AI Card 3: Catalog Clustering -->
@@ -321,6 +346,15 @@
             <span class="metric-badge cyan">Batch Expiry Tracking</span>
           </div>
         </div>
+
+        <!-- Real System Screenshot: Sales & Purchase Analytics + Variant Matrix -->
+        <div class="card cyan-accent" style="grid-column: 1 / -1;">
+          <span class="card-tag tag-cyan">Live Analytics Dashboard</span>
+          <h3>Customer Price History & AI Variant Selection Matrix</h3>
+          <p>Live operational dashboard showing doctor price history, supplier purchase cost tracking, low-price alert badges, and multi-shade variant selection matrix.</p>
+          <img src="./assets/screenshots/sales_analytics.jpg" alt="Real-Time Customer Price History and Variant Matrix Dashboard" class="process-screenshot">
+          <div class="screenshot-caption">📊 Live System: Doctor historical sales pricing, supplier cost tracking, and variant shade selection.</div>
+        </div>
       </div>
     </section>
 
@@ -328,6 +362,26 @@
     <section>
       <h2 class="section-title"><span class="icon">⚡</span> AI-Driven Enterprise Operations Platform</h2>
       
+      <div class="grid" style="margin-bottom:1.5rem;">
+        <!-- Real System Screenshot: Order Stepper -->
+        <div class="card cyan-accent">
+          <span class="card-tag tag-cyan">Process Stepper</span>
+          <h3>Closed-Loop 5-Step Order Stepper</h3>
+          <p>Real-time lifecycle tracking: Draft ➔ Quote Sent ➔ Payment Received ➔ Legacy ERP Auto-Post ➔ Sent via WhatsApp.</p>
+          <img src="./assets/screenshots/order_stepper.jpg" alt="Closed-Loop 5-Step Order & Payment Pipeline Tracking" class="process-screenshot">
+          <div class="screenshot-caption">⚡ Live System: Real-time 5-stage order progress tracking & instant invoicing.</div>
+        </div>
+
+        <!-- Real System Screenshot: Stock Search & Dispatch -->
+        <div class="card cyan-accent">
+          <span class="card-tag tag-cyan">Stock & Dispatch</span>
+          <h3>Sub-Second Stock Lookup & Customer Dispatch</h3>
+          <p>Instant SKU search across 10,000+ items with automated customer billing notifications and thermal shipping label generation.</p>
+          <img src="./assets/screenshots/stock_search.jpg" alt="Instant Stock Search and Customer Dispatch Panel" class="process-screenshot">
+          <div class="screenshot-caption">📱 Live System: Fast stock search, customer details, and thermal invoice printing.</div>
+        </div>
+      </div>
+
       <div class="card cyan-accent">
         <span class="card-tag tag-cyan">Enterprise Operational System</span>
         <h3>High-Speed Operations Platform & Legacy ERP Sync</h3>
@@ -398,6 +452,14 @@
     </section>
 
     <!-- Footer -->
+    footer {
+      text-align: center;
+      padding: 3rem 1rem 1rem;
+      color: var(--subtext);
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 4rem;
+    }
     <footer>
       <p>Designed & Built by <strong>Avinash Bengaluru</strong> · Hosted on GitHub Pages</p>
     </footer>
