@@ -1060,13 +1060,69 @@
 
     </section>
 
+    <!-- Slide 11: Real System — Closed-Loop 5-Step Order Stepper -->
+    <section class="m-slide" id="mslide11">
+      <div class="m-card hero">
+        <span class="tag-pill cyan">LIVE SYSTEM PROOF</span>
+        <h1 class="m-title">Real System: 5-Stage Live Order Stepper</h1>
+        <h2 class="m-subtitle">Closed-Loop Order & Payment Lifecycle</h2>
+        <p class="m-body">Tracks every transaction from Draft ➔ Quote Sent ➔ Payment Received ➔ Legacy ERP Auto-Post ➔ WhatsApp Delivery in real-time.</p>
+      </div>
+      <div class="m-card">
+        <img src="./assets/screenshots/order_stepper.jpg" alt="5-Stage Live Order Stepper Screenshot" style="width:100%; border-radius:10px; border:1px solid rgba(255,255,255,0.15); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+        <div style="font-size:0.8rem; color:#5eead4; margin-top:0.6rem; font-weight:600;">⚡ Real Screenshot: Order TEMP-025424 (Grand Total ₹2,475.00) auto-syncing to ERP upon payment.</div>
+      </div>
+    </section>
+
+    <!-- Slide 12: Real System — AI Handwritten Prescription OCR -->
+    <section class="m-slide" id="mslide12">
+      <div class="m-card hero">
+        <span class="tag-pill purple">LIVE SYSTEM PROOF</span>
+        <h1 class="m-title">Real System: Handwritten Prescription OCR</h1>
+        <h2 class="m-subtitle">Multi-Format Chat & Document Vision OCR</h2>
+        <p class="m-body">AI vision model extracts 9 line items from handwritten doctor notes and WhatsApp chat messages directly into a quotation in 1 click.</p>
+      </div>
+      <div class="m-card">
+        <img src="./assets/screenshots/handwritten_ocr.jpg" alt="Handwritten Doctor Prescription OCR Screenshot" style="width:100%; border-radius:10px; border:1px solid rgba(255,255,255,0.15); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+        <div style="font-size:0.8rem; color:#c084fc; margin-top:0.6rem; font-weight:600;">📷 Real Screenshot: Instant extraction of doctor handwritten item lists (+9 requests found).</div>
+      </div>
+    </section>
+
+    <!-- Slide 13: Real System — Real-Time Price Analytics & Variant Matrix -->
+    <section class="m-slide" id="mslide13">
+      <div class="m-card hero">
+        <span class="tag-pill cyan">LIVE SYSTEM PROOF</span>
+        <h1 class="m-title">Real System: Price Analytics & Variant Matrix</h1>
+        <h2 class="m-subtitle">Doctor Sales History & Supplier Cost Tracking</h2>
+        <p class="m-body">Live price history per doctor, supplier purchase costs, low-price alert badges, and multi-shade variant selection matrix.</p>
+      </div>
+      <div class="m-card">
+        <img src="./assets/screenshots/sales_analytics.jpg" alt="Sales Price Analytics & Variant Picker Screenshot" style="width:100%; border-radius:10px; border:1px solid rgba(255,255,255,0.15); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+        <div style="font-size:0.8rem; color:#5eead4; margin-top:0.6rem; font-weight:600;">📊 Real Screenshot: Doctor price history (₹340), supplier cost (₹270), and variant shade picker.</div>
+      </div>
+    </section>
+
+    <!-- Slide 14: Real System — Sub-Second Stock Search & Dispatch -->
+    <section class="m-slide" id="mslide14">
+      <div class="m-card hero">
+        <span class="tag-pill cyan">LIVE SYSTEM PROOF</span>
+        <h1 class="m-title">Real System: Stock Search & Thermal Dispatch</h1>
+        <h2 class="m-subtitle">Fast Stock Search & Instant Receipt Printing</h2>
+        <p class="m-body">Sub-second stock lookup across 10,000+ items with automated customer billing notifications and thermal shipping label printing.</p>
+      </div>
+      <div class="m-card">
+        <img src="./assets/screenshots/stock_search.jpg" alt="Stock Search & Thermal Label Printing Screenshot" style="width:100%; border-radius:10px; border:1px solid rgba(255,255,255,0.15); box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+        <div style="font-size:0.8rem; color:#5eead4; margin-top:0.6rem; font-weight:600;">📱 Real Screenshot: Sub-second search dropdown, customer details, and thermal receipt label generation.</div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Footer Nav -->
   <footer class="mobile-footer-nav">
     <button class="nav-btn" id="mPrevBtn" aria-label="Previous card">‹</button>
     <div class="slide-dots-mobile" id="mDots"></div>
-    <span class="slide-count-txt" id="mCount">1 / 10</span>
+    <span class="slide-count-txt" id="mCount">1 / 14</span>
     <button class="nav-btn" id="mNextBtn" aria-label="Next card">›</button>
   </footer>
 
@@ -1102,7 +1158,7 @@
         });
 
         if (current > 0 && swipeHint) {
-          swipeHint.textContent = '👈 Swipe left / right to navigate · Card ' + (current + 1) + ' of 10';
+          swipeHint.textContent = '👈 Swipe left / right to navigate · Card ' + (current + 1) + ' of ' + slides.length;
         }
       }
 
